@@ -40,6 +40,8 @@ npm run lint   # Run ESLint
 npm run preview # Preview the production build
 npm test        # Run the test suite once
 npm run test:watch # Run tests in watch mode
+npm run test:e2e # Run browser-based end-to-end tests
+npm run test:e2e:ui # Open Playwright’s interactive test UI
 ```
 
 ## Data
@@ -51,6 +53,12 @@ Country flags are provided by [`svg-country-flags`](https://github.com/hjnilsson
 ## Testing
 
 Tests use Vitest with React Testing Library and cover the default pagination, name and zone filters, column sorting, and page navigation.
+
+End-to-end tests use Playwright and run against a local Vite development server. Install the browser once with:
+
+```bash
+npx playwright install chromium
+```
 
 ## Docker
 
