@@ -52,6 +52,22 @@ Country flags are provided by [`svg-country-flags`](https://github.com/hjnilsson
 
 Tests use Vitest with React Testing Library and cover the default pagination, name and zone filters, column sorting, and page navigation.
 
+## Docker
+
+Build and start the production container locally:
+
+```bash
+docker compose up --build
+```
+
+The application is then available at [http://localhost:8080](http://localhost:8080). Stop it with:
+
+```bash
+docker compose down
+```
+
+The GitHub Actions workflow runs tests, linting, and the production build for pushes and pull requests targeting `main`. A successful push to `main` also publishes `latest` and commit-specific tags to GitHub Container Registry. The repository’s Actions workflow must have permission to write packages for the publish step.
+
 ## AI assistance
 
 AI was partially used during this project to assist with implementation, code organization, styling, and documentation. The resulting code and behavior were reviewed and tested locally.
