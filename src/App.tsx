@@ -1,10 +1,8 @@
 import { useMemo, useState, type ChangeEvent } from "react";
 import countriesData from "./data/countries_v.i.e_data";
-
-const currencyFormatter = new Intl.NumberFormat("fr-FR", {
-  style: "currency",
-  currency: "EUR",
-});
+import CountryTable from "./components/CountryTable";
+import Filters from "./components/Filters";
+import type { SortColumn, SortDirection, Zone } from "./types";
 
 const flagCodeByCountry = {
   AFGHANISTAN: "af",
@@ -119,10 +117,6 @@ const zones = [
   "MOYEN-ORIENT",
   "OCEANIE",
 ] as const;
-
-type Zone = (typeof zones)[number];
-type SortColumn = "name" | "zone" | "commonIndemnity" | "geographicIndemnity" | "monthlyPay";
-type SortDirection = "ascending" | "descending";
 
 const pageSize = 10;
 
@@ -305,64 +299,24 @@ function App() {
         <p className="intro">Compare V.I.E. indemnities across countries.</p>
       </header>
 
-      <section className="filters" aria-label="Country filters">
-        <label>
-          Country name
-          <input
-            type="search"
-            value={nameSearch}
-            placeholder="e.g. Allemagne"
-            onChange={(event) => {
-              setNameSearch(event.target.value);
-              setCurrentPage(1);
-            }}
-          />
-        </label>
-
-        <label>
-          Zone
-          <select
-            value={selectedZone}
-            onChange={(event) => {
-              setSelectedZone(event.target.value as Zone | "");
-              setCurrentPage(1);
-            }}
-          >
-            <option value="">All zones</option>
-            {zones.map((zone) => (
-              <option key={zone} value={zone}>{zone}</option>
-            ))}
-          </select>
-        </label>
-
-        <label>
-          Minimum total indemnity (€)
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            value={minimumIndemnity}
-            placeholder="No minimum"
-            onChange={(event) => handleNumberChange(setMinimumIndemnity, event)}
-          />
-        </label>
-
-        <label>
-          Maximum total indemnity (€)
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            value={maximumIndemnity}
-            placeholder="No maximum"
-            onChange={(event) => handleNumberChange(setMaximumIndemnity, event)}
-          />
-        </label>
-
-        <button type="button" className="reset-button" onClick={resetFilters}>
-          Reset
-        </button>
-      </section>
+      <Filters
+        nameSearch={nameSearch}
+        minimumIndemnity={minimumIndemnity}
+        maximumIndemnity={maximumIndemnity}
+        selectedZone={selectedZone}
+        zones={zones}
+        onNameChange={(value) => {
+          setNameSearch(value);
+          setCurrentPage(1);
+        }}
+        onMinimumChange={(event) => handleNumberChange(setMinimumIndemnity, event)}
+        onMaximumChange={(event) => handleNumberChange(setMaximumIndemnity, event)}
+        onZoneChange={(value) => {
+          setSelectedZone(value);
+          setCurrentPage(1);
+        }}
+        onReset={resetFilters}
+      />
 
       <section className="results" aria-live="polite">
         <div className="results-heading">
@@ -376,79 +330,18 @@ function App() {
         ) : sortedCountries.length === 0 ? (
           <p className="empty-state">No countries match these filters.</p>
         ) : (
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Flag</th>
-                  <th scope="col" aria-sort={sortColumn === "name" ? sortDirection : "none"}>
-                    <button type="button" className="sort-button" onClick={() => handleSort("name")}>
-                      Name {sortColumn === "name" && (sortDirection === "ascending" ? "↑" : "↓")}
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort={sortColumn === "zone" ? sortDirection : "none"}>
-                    <button type="button" className="sort-button" onClick={() => handleSort("zone")}>
-                      Zone {sortColumn === "zone" && (sortDirection === "ascending" ? "↑" : "↓")}
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort={sortColumn === "commonIndemnity" ? sortDirection : "none"}>
-                    <button type="button" className="sort-button" onClick={() => handleSort("commonIndemnity")}>
-                      Common indemnity {sortColumn === "commonIndemnity" && (sortDirection === "ascending" ? "↑" : "↓")}
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort={sortColumn === "geographicIndemnity" ? sortDirection : "none"}>
-                    <button type="button" className="sort-button" onClick={() => handleSort("geographicIndemnity")}>
-                      Geographic indemnity {sortColumn === "geographicIndemnity" && (sortDirection === "ascending" ? "↑" : "↓")}
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort={sortColumn === "monthlyPay" ? sortDirection : "none"}>
-                    <button type="button" className="sort-button" onClick={() => handleSort("monthlyPay")}>
-                      Total indemnity {sortColumn === "monthlyPay" && (sortDirection === "ascending" ? "↑" : "↓")}
-                    </button>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {visibleCountries.map((country) => (
-                  <tr key={country.countryId}>
-                    <td>
-                      <img
-                        className="country-flag"
-                        src={`/flags/${getFlagCode(country.name)}.svg`}
-                        alt={`${country.name} flag`}
-                      />
-                    </td>
-                    <td>{country.name}</td>
-                    <td>{getZone(country.name)}</td>
-                    <td>{currencyFormatter.format(country.commonIndemnity)}</td>
-                    <td>{currencyFormatter.format(country.geographicIndemnity)}</td>
-                    <td className="total-cell">{currencyFormatter.format(country.monthlyPay)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {totalPages > 1 && (
-              <nav className="pagination" aria-label="Country table pages">
-                <button
-                  type="button"
-                  className="page-button"
-                  disabled={visiblePage === 1}
-                  onClick={() => setCurrentPage((page) => page - 1)}
-                >
-                  Previous
-                </button>
-                <span>Page {visiblePage} of {totalPages}</span>
-                <button
-                  type="button"
-                  className="page-button"
-                  disabled={visiblePage === totalPages}
-                  onClick={() => setCurrentPage((page) => page + 1)}
-                >
-                  Next
-                </button>
-              </nav>
-            )}
-          </div>
+          <CountryTable
+            countries={visibleCountries}
+            sortColumn={sortColumn}
+            sortDirection={sortDirection}
+            totalPages={totalPages}
+            currentPage={visiblePage}
+            getFlagCode={getFlagCode}
+            getZone={getZone}
+            onSort={handleSort}
+            onPreviousPage={() => setCurrentPage((page) => page - 1)}
+            onNextPage={() => setCurrentPage((page) => page + 1)}
+          />
         )}
       </section>
     </main>
