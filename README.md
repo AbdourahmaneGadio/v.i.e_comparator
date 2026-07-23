@@ -42,6 +42,7 @@ npm test        # Run the test suite once
 npm run test:watch # Run tests in watch mode
 npm run test:e2e # Run browser-based end-to-end tests
 npm run test:e2e:ui # Open Playwright’s interactive test UI
+npm run precommit # Run the checks enforced before commits
 ```
 
 ## Data
@@ -59,6 +60,8 @@ End-to-end tests use Playwright and run against a local Vite development server.
 ```bash
 npx playwright install chromium
 ```
+
+Husky runs the lint and unit-test checks automatically before each commit. The same `npm run precommit` command is executed by the CI pipeline.
 
 ## Docker
 
