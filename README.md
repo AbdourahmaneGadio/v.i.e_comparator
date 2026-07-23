@@ -1,6 +1,12 @@
 # V.I.E Comparator
 
+[![CI/CD](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/ci-cd.yml)
+[![Last commit](https://img.shields.io/github/last-commit/AbdourahmaneGadio/v.i.e_comparator)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/commits/main)
+[![Repository size](https://img.shields.io/github/repo-size/AbdourahmaneGadio/v.i.e_comparator)](https://github.com/AbdourahmaneGadio/v.i.e_comparator)
+
 A React and TypeScript application for comparing V.I.E. indemnities across countries.
+
+![V.I.E Comparator screenshot](docs/screenshot.png)
 
 ## Features
 
@@ -10,6 +16,35 @@ A React and TypeScript application for comparing V.I.E. indemnities across count
 - Display country flags
 - Sort the table by clicking a column header
 - Browse results with pagination (10 countries per page)
+
+## Repository structure
+
+```text
+.
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/ci-cd.yml
+├── .husky/pre-commit
+├── docs/screenshot.png
+├── e2e/app.spec.ts
+├── public/flags/
+├── src/
+│   ├── components/
+│   │   ├── CountryTable.tsx
+│   │   ├── Filters.tsx
+│   │   └── Pagination.tsx
+│   ├── data/countries_v.i.e_data.tsx
+│   ├── App.test.tsx
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── types.ts
+├── Dockerfile
+├── docker-compose.yml
+├── nginx.conf
+└── package.json
+```
+
+`App.tsx` coordinates application state, while the components handle filters, table rendering, sorting, and pagination independently.
 
 ## Getting started
 
@@ -78,6 +113,12 @@ docker compose down
 ```
 
 The GitHub Actions workflow runs tests, linting, and the production build for pushes and pull requests targeting `main`. A successful push to `main` also publishes `latest` and commit-specific tags to GitHub Container Registry. The repository’s Actions workflow must have permission to write packages for the publish step.
+
+## Automation
+
+- GitHub Actions runs the pre-commit checks, production build, and Docker pipeline.
+- Dependabot checks npm, GitHub Actions, and Docker dependencies weekly.
+- Docker images are published to GitHub Container Registry after successful pushes to `main`.
 
 ## AI assistance
 
