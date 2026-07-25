@@ -34,6 +34,7 @@ function Filters({
       <label>
         {translation.countryName}
         <input
+          data-testid="name-filter"
           type="search"
           value={nameSearch}
           placeholder={translation.countryPlaceholder}
@@ -44,6 +45,7 @@ function Filters({
       <label>
         {translation.zone}
         <select
+          data-testid="zone-filter"
           value={selectedZone}
           onChange={(event) => onZoneChange(event.target.value as Zone | "")}
         >

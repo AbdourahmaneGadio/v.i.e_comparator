@@ -35,7 +35,12 @@ function SortableHeader({ label, column, activeColumn, direction, onSort }: Sort
 
   return (
     <th scope="col" aria-sort={isActive ? direction : "none"}>
-      <button type="button" className="sort-button" onClick={() => onSort(column)}>
+      <button
+        data-testid={`sort-${column}`}
+        type="button"
+        className="sort-button"
+        onClick={() => onSort(column)}
+      >
         {label} {indicator}
       </button>
     </th>
@@ -57,7 +62,7 @@ function CountryTable({
 }: CountryTableProps) {
   return (
     <div className="table-wrapper">
-      <table>
+      <table data-testid="country-table">
         <thead>
           <tr>
             <th scope="col">{translation.flag}</th>
@@ -70,7 +75,7 @@ function CountryTable({
         </thead>
         <tbody>
           {countries.map((country) => (
-            <tr key={country.countryId}>
+            <tr data-testid="country-row" key={country.countryId}>
               <td>
                 <img
                   className="country-flag"
@@ -78,7 +83,7 @@ function CountryTable({
                   alt={translation.flagAlt(country.name)}
                 />
               </td>
-              <td>{country.name}</td>
+              <td data-testid="country-name">{country.name}</td>
               <td>{translation.zones[getZone(country.name)]}</td>
               <td>{currencyFormatter.format(country.commonIndemnity)}</td>
               <td>{currencyFormatter.format(country.geographicIndemnity)}</td>

@@ -21,8 +21,9 @@ function Pagination({ currentPage, totalPages, onPrevious, onNext, translation }
       >
         {translation.previous}
       </button>
-      <span>{translation.pageOf(currentPage, totalPages)}</span>
+      <span data-testid="page-indicator">{translation.pageOf(currentPage, totalPages)}</span>
       <button
+        data-testid="next-page"
         type="button"
         className="page-button"
         disabled={currentPage === totalPages}

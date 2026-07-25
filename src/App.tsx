@@ -333,6 +333,7 @@ function App() {
             <h1>{translation.title}</h1>
           </div>
           <button
+            data-testid="language-toggle"
             type="button"
             className="language-toggle"
             aria-label={translation.switchLanguage}

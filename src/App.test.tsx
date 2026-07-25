@@ -6,41 +6,46 @@ import App from "./App";
 afterEach(cleanup);
 
 const getBodyRows = () =>
-  within(screen.getByRole("table")).getAllByRole("row").slice(1);
+  within(screen.getByTestId("country-table")).getAllByTestId("country-row");
 
 const getFirstCountryName = () =>
-  within(getBodyRows()[0]).getAllByRole("cell")[1].textContent;
+  within(getBodyRows()[0]).getByTestId("country-name").textContent;
+
+const getCountryNames = () =>
+  screen.getAllByTestId("country-name").map((country) => country.textContent);
 
 describe("V.I.E Comparator", () => {
   it("shows ten countries per page by default", () => {
     render(<App />);
 
     expect(getBodyRows()).toHaveLength(10);
-    expect(screen.getByText("Page 1 of 24")).toBeInTheDocument();
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 of 24");
   });
 
   it("filters countries by name and zone", async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.type(screen.getByRole("searchbox"), "Allemagne");
-    expect(screen.getByText("ALLEMAGNE (Berlin)")).toBeInTheDocument();
-    expect(screen.queryByText("AFGHANISTAN")).not.toBeInTheDocument();
+    await user.type(screen.getByTestId("name-filter"), "Allemagne");
+    expect(getCountryNames()).toContain("ALLEMAGNE (Berlin)");
+    expect(getCountryNames()).not.toContain("AFGHANISTAN");
 
-    await user.clear(screen.getByRole("searchbox"));
-    await user.selectOptions(screen.getByRole("combobox"), "AFRIQUE DU NORD");
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.selectOptions(screen.getByTestId("zone-filter"), "AFRIQUE DU NORD");
 
-    expect(screen.getByText("ALGERIE (autres villes)")).toBeInTheDocument();
-    expect(screen.getByText("EGYPTE")).toBeInTheDocument();
-    expect(screen.getByText("TUNISIE")).toBeInTheDocument();
-    expect(screen.queryByText("ALLEMAGNE (Berlin)")).not.toBeInTheDocument();
+    expect(getCountryNames()).toEqual(expect.arrayContaining([
+      "ALGERIE (autres villes)",
+      "EGYPTE",
+      "TUNISIE",
+    ]));
+    expect(getCountryNames()).not.toContain("ALLEMAGNE (Berlin)");
   });
 
   it("sorts the table when a column header is clicked", async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const nameHeader = screen.getByRole("button", { name: /Name/ });
+    const nameHeader = screen.getByTestId("sort-name");
     await user.click(nameHeader);
     expect(getFirstCountryName()).toBe("ZIMBABWE");
 
@@ -52,9 +57,9 @@ describe("V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: "Next" }));
+    await user.click(screen.getByTestId("next-page"));
 
-    expect(screen.getByText("Page 2 of 24")).toBeInTheDocument();
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 2 of 24");
     expect(getFirstCountryName()).toBe("ANDORRE");
   });
 
@@ -62,11 +67,11 @@ describe("V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: "Français" }));
+    await user.click(screen.getByTestId("language-toggle"));
 
     expect(screen.getByRole("heading", { name: "Comparateur V.I.E." })).toBeInTheDocument();
     expect(screen.getByLabelText("Nom du pays")).toBeInTheDocument();
-    expect(screen.getByText("Page 1 sur 24")).toBeInTheDocument();
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 sur 24");
     expect(screen.getByText("Source des données:")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Business France" })).toHaveAttribute(
       "href",
