@@ -2,6 +2,7 @@ import { useMemo, useState, type ChangeEvent } from "react";
 import countriesData from "./data/countries_v.i.e_data";
 import CountryTable from "./components/CountryTable";
 import Filters from "./components/Filters";
+import { translations, type Language } from "./i18n";
 import { ZONES, type SortColumn, type SortDirection, type Zone } from "./types";
 
 const pageSize = 10;
@@ -253,6 +254,7 @@ const getZone = (countryName: string) =>
   zoneByCountry[getCountryKey(countryName)] ?? "ASIE ET PACIFIQUE";
 
 function App() {
+  const [language, setLanguage] = useState<Language>("en");
   const [nameSearch, setNameSearch] = useState("");
   const [minimumIndemnity, setMinimumIndemnity] = useState("");
   const [maximumIndemnity, setMaximumIndemnity] = useState("");
@@ -260,6 +262,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortColumn>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("ascending");
+  const translation = translations[language];
 
   const sortedCountries = useMemo(() => {
     const normalizedName = nameSearch.trim().toLocaleLowerCase();
@@ -322,11 +325,23 @@ function App() {
   };
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" lang={language}>
       <header className="page-header">
-        <p className="eyebrow">International mobility</p>
-        <h1>V.I.E Comparator</h1>
-        <p className="intro">Compare V.I.E. indemnities across countries.</p>
+        <div className="header-row">
+          <div>
+            <p className="eyebrow">{translation.eyebrow}</p>
+            <h1>{translation.title}</h1>
+          </div>
+          <button
+            type="button"
+            className="language-toggle"
+            aria-label={translation.switchLanguage}
+            onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+          >
+            {translation.switchLanguage}
+          </button>
+        </div>
+        <p className="intro">{translation.intro}</p>
       </header>
 
       <Filters
@@ -335,6 +350,7 @@ function App() {
         maximumIndemnity={maximumIndemnity}
         selectedZone={selectedZone}
         zones={ZONES}
+        translation={translation}
         onNameChange={(value) => {
           setNameSearch(value);
           setCurrentPage(1);
@@ -350,15 +366,15 @@ function App() {
 
       <section className="results" aria-live="polite">
         <div className="results-heading">
-          <h2>Countries</h2>
-          <span>{sortedCountries.length} result(s)</span>
+          <h2>{translation.countries}</h2>
+          <span>{translation.resultCount(sortedCountries.length)}</span>
         </div>
 
         {minimumIndemnity !== "" && maximumIndemnity !== "" &&
         Number(minimumIndemnity) > Number(maximumIndemnity) ? (
-          <p className="empty-state">The minimum cannot be greater than the maximum.</p>
+          <p className="empty-state">{translation.minimumError}</p>
         ) : sortedCountries.length === 0 ? (
-          <p className="empty-state">No countries match these filters.</p>
+          <p className="empty-state">{translation.noMatches}</p>
         ) : (
           <CountryTable
             countries={visibleCountries}
@@ -371,6 +387,7 @@ function App() {
             onSort={handleSort}
             onPreviousPage={() => setCurrentPage((page) => page - 1)}
             onNextPage={() => setCurrentPage((page) => page + 1)}
+            translation={translation}
           />
         )}
       </section>

@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react";
+import type { Translation } from "../i18n";
 import type { Zone } from "../types";
 
 interface FiltersProps {
@@ -7,6 +8,7 @@ interface FiltersProps {
   maximumIndemnity: string;
   selectedZone: Zone | "";
   zones: readonly Zone[];
+  translation: Translation;
   onNameChange: (value: string) => void;
   onMinimumChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onMaximumChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +22,7 @@ function Filters({
   maximumIndemnity,
   selectedZone,
   zones,
+  translation,
   onNameChange,
   onMinimumChange,
   onMaximumChange,
@@ -27,56 +30,56 @@ function Filters({
   onReset,
 }: FiltersProps) {
   return (
-    <section className="filters" aria-label="Country filters">
+    <section className="filters" aria-label={translation.countryFilters}>
       <label>
-        Country name
+        {translation.countryName}
         <input
           type="search"
           value={nameSearch}
-          placeholder="e.g. Allemagne"
+          placeholder={translation.countryPlaceholder}
           onChange={(event) => onNameChange(event.target.value)}
         />
       </label>
 
       <label>
-        Zone
+        {translation.zone}
         <select
           value={selectedZone}
           onChange={(event) => onZoneChange(event.target.value as Zone | "")}
         >
-          <option value="">All zones</option>
+          <option value="">{translation.allZones}</option>
           {zones.map((zone) => (
-            <option key={zone} value={zone}>{zone}</option>
+            <option key={zone} value={zone}>{translation.zones[zone]}</option>
           ))}
         </select>
       </label>
 
       <label>
-        Minimum total indemnity (€)
+        {translation.minimumIndemnity}
         <input
           type="number"
           min="0"
           step="0.01"
           value={minimumIndemnity}
-          placeholder="No minimum"
+          placeholder={translation.noMinimum}
           onChange={onMinimumChange}
         />
       </label>
 
       <label>
-        Maximum total indemnity (€)
+        {translation.maximumIndemnity}
         <input
           type="number"
           min="0"
           step="0.01"
           value={maximumIndemnity}
-          placeholder="No maximum"
+          placeholder={translation.noMaximum}
           onChange={onMaximumChange}
         />
       </label>
 
       <button type="button" className="reset-button" onClick={onReset}>
-        Reset
+        {translation.reset}
       </button>
     </section>
   );

@@ -1,4 +1,5 @@
 import type { Country, SortColumn, SortDirection, Zone } from "../types";
+import type { Translation } from "../i18n";
 import Pagination from "./Pagination";
 
 const currencyFormatter = new Intl.NumberFormat("fr-FR", {
@@ -17,6 +18,7 @@ interface CountryTableProps {
   onSort: (column: SortColumn) => void;
   onPreviousPage: () => void;
   onNextPage: () => void;
+  translation: Translation;
 }
 
 interface SortableHeaderProps {
@@ -51,18 +53,19 @@ function CountryTable({
   onSort,
   onPreviousPage,
   onNextPage,
+  translation,
 }: CountryTableProps) {
   return (
     <div className="table-wrapper">
       <table>
         <thead>
           <tr>
-            <th scope="col">Flag</th>
-            <SortableHeader label="Name" column="name" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
-            <SortableHeader label="Zone" column="zone" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
-            <SortableHeader label="Common indemnity" column="commonIndemnity" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
-            <SortableHeader label="Geographic indemnity" column="geographicIndemnity" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
-            <SortableHeader label="Total indemnity" column="monthlyPay" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
+            <th scope="col">{translation.flag}</th>
+            <SortableHeader label={translation.name} column="name" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
+            <SortableHeader label={translation.zone} column="zone" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
+            <SortableHeader label={translation.commonIndemnity} column="commonIndemnity" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
+            <SortableHeader label={translation.geographicIndemnity} column="geographicIndemnity" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
+            <SortableHeader label={translation.totalIndemnity} column="monthlyPay" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
           </tr>
         </thead>
         <tbody>
@@ -72,11 +75,11 @@ function CountryTable({
                 <img
                   className="country-flag"
                   src={`/flags/${getFlagCode(country.name)}.svg`}
-                  alt={`${country.name} flag`}
+                  alt={translation.flagAlt(country.name)}
                 />
               </td>
               <td>{country.name}</td>
-              <td>{getZone(country.name)}</td>
+              <td>{translation.zones[getZone(country.name)]}</td>
               <td>{currencyFormatter.format(country.commonIndemnity)}</td>
               <td>{currencyFormatter.format(country.geographicIndemnity)}</td>
               <td className="total-cell">{currencyFormatter.format(country.monthlyPay)}</td>
@@ -89,6 +92,7 @@ function CountryTable({
         totalPages={totalPages}
         onPrevious={onPreviousPage}
         onNext={onNextPage}
+        translation={translation}
       />
     </div>
   );

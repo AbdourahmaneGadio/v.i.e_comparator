@@ -57,4 +57,16 @@ describe("V.I.E Comparator", () => {
     expect(screen.getByText("Page 2 of 24")).toBeInTheDocument();
     expect(getFirstCountryName()).toBe("ANDORRE");
   });
+
+  it("switches between English and French", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "Français" }));
+
+    expect(screen.getByRole("heading", { name: "Comparateur V.I.E." })).toBeInTheDocument();
+    expect(screen.getByLabelText("Nom du pays")).toBeInTheDocument();
+    expect(screen.getByText("Page 1 sur 24")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "English" })).toBeInTheDocument();
+  });
 });
