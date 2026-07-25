@@ -5,7 +5,7 @@ test.describe("V.I.E Comparator", () => {
     await page.goto("/");
 
     await expect(page.locator("tbody tr")).toHaveCount(10);
-    await expect(page.getByText("Page 1 of 14")).toBeVisible();
+    await expect(page.getByText("Page 1 of 24")).toBeVisible();
     await expect(page.getByRole("button", { name: "Next" })).toBeEnabled();
   });
 
@@ -30,9 +30,9 @@ test.describe("V.I.E Comparator", () => {
     await expect(firstCountry).toHaveText("AFGHANISTAN");
 
     await page.getByRole("button", { name: /Name/ }).click();
-    await expect(firstCountry).toHaveText("LIBERIA");
+    await expect(firstCountry).toHaveText("ZIMBABWE");
 
     await page.getByRole("button", { name: "Next" }).click();
-    await expect(page.getByText("Page 2 of 14")).toBeVisible();
+    await expect(page.getByText("Page 2 of 24")).toBeVisible();
   });
 });
