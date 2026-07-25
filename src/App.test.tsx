@@ -16,7 +16,7 @@ describe("V.I.E Comparator", () => {
     render(<App />);
 
     expect(getBodyRows()).toHaveLength(10);
-    expect(screen.getByText("Page 1 of 14")).toBeInTheDocument();
+    expect(screen.getByText("Page 1 of 24")).toBeInTheDocument();
   });
 
   it("filters countries by name and zone", async () => {
@@ -32,6 +32,7 @@ describe("V.I.E Comparator", () => {
 
     expect(screen.getByText("ALGERIE (autres villes)")).toBeInTheDocument();
     expect(screen.getByText("EGYPTE")).toBeInTheDocument();
+    expect(screen.getByText("TUNISIE")).toBeInTheDocument();
     expect(screen.queryByText("ALLEMAGNE (Berlin)")).not.toBeInTheDocument();
   });
 
@@ -41,7 +42,7 @@ describe("V.I.E Comparator", () => {
 
     const nameHeader = screen.getByRole("button", { name: /Name/ });
     await user.click(nameHeader);
-    expect(getFirstCountryName()).toBe("LIBERIA");
+    expect(getFirstCountryName()).toBe("ZIMBABWE");
 
     await user.click(nameHeader);
     expect(getFirstCountryName()).toBe("AFGHANISTAN");
@@ -53,7 +54,7 @@ describe("V.I.E Comparator", () => {
 
     await user.click(screen.getByRole("button", { name: "Next" }));
 
-    expect(screen.getByText("Page 2 of 14")).toBeInTheDocument();
+    expect(screen.getByText("Page 2 of 24")).toBeInTheDocument();
     expect(getFirstCountryName()).toBe("ANDORRE");
   });
 });

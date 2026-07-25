@@ -6,16 +6,19 @@ export interface Country {
   monthlyPay: number;
 }
 
-export type Zone =
-  | "AFRIQUE DU NORD"
-  | "AFRIQUE SUBSAHARIENNE"
-  | "AMERIQUE DU NORD"
-  | "AMERIQUE LATINE"
-  | "ASIE"
-  | "EUROPE CENTRALE ET ORIENTALE"
-  | "EUROPE OCCIDENTALE"
-  | "MOYEN-ORIENT"
-  | "OCEANIE";
+export const ZONES = [
+  "AFRIQUE DU NORD",
+  "AFRIQUE SUBSAHARIENNE",
+  "AMERIQUE DU NORD",
+  "AMERIQUE LATINE",
+  "ASIE ET PACIFIQUE",
+  "EUROPE CENTRALE ET ORIENTALE",
+  "EUROPE OCCIDENTALE",
+  "PROCHE ET MOYEN-ORIENT",
+  "OCEANIE",
+] as const;
+
+export type Zone = (typeof ZONES)[number];
 
 export type SortColumn =
   | "name"
