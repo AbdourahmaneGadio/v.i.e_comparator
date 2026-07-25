@@ -391,6 +391,18 @@ function App() {
           />
         )}
       </section>
+
+      <footer className="app-footer">
+        <span>{translation.dataSource}:</span>
+        <a
+          href="https://mon-vie-via.businessfrance.fr"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Business France
+        </a>
+        <span>· {translation.dataYear}</span>
+      </footer>
     </main>
   );
 }

@@ -67,6 +67,11 @@ describe("V.I.E Comparator", () => {
     expect(screen.getByRole("heading", { name: "Comparateur V.I.E." })).toBeInTheDocument();
     expect(screen.getByLabelText("Nom du pays")).toBeInTheDocument();
     expect(screen.getByText("Page 1 sur 24")).toBeInTheDocument();
+    expect(screen.getByText("Source des données:")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Business France" })).toHaveAttribute(
+      "href",
+      "https://mon-vie-via.businessfrance.fr",
+    );
     expect(screen.getByRole("button", { name: "English" })).toBeInTheDocument();
   });
 });

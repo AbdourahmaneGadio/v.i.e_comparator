@@ -32,6 +32,8 @@ export interface Translation {
   previous: string;
   pageOf: (currentPage: number, totalPages: number) => string;
   next: string;
+  dataSource: string;
+  dataYear: string;
   zones: Record<Zone, string>;
 }
 
@@ -90,6 +92,8 @@ export const translations: Record<Language, Translation> = {
     previous: "Previous",
     pageOf: (currentPage, totalPages) => `Page ${currentPage} of ${totalPages}`,
     next: "Next",
+    dataSource: "Data source",
+    dataYear: "2025 data",
     zones: englishZones,
   },
   fr: {
@@ -122,6 +126,8 @@ export const translations: Record<Language, Translation> = {
     previous: "Précédent",
     pageOf: (currentPage, totalPages) => `Page ${currentPage} sur ${totalPages}`,
     next: "Suivant",
+    dataSource: "Source des données",
+    dataYear: "Données 2025",
     zones: frenchZones,
   },
 };

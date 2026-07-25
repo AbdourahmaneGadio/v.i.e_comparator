@@ -45,6 +45,9 @@ tbody tr:last-child td { border-bottom: 0; }
 tbody tr:hover { background: #f8fbfc; }
 .total-cell { color: #0b7285; font-weight: 700; }
 .empty-state { padding: 28px; color: #64727e; text-align: center; background: #fff; border: 1px solid #e2e8ec; border-radius: 12px; }
+.app-footer { display: flex; justify-content: center; gap: 4px; margin-top: 28px; color: #72808b; font-size: 0.85rem; text-align: center; }
+.app-footer a { color: #0b7285; font-weight: 700; }
+.app-footer a:hover { color: #075766; }
 .pagination { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 16px; color: #64727e; font-size: 0.9rem; }
 .page-button { padding: 8px 12px; color: #0b7285; font: inherit; font-weight: 700; background: #fff; border: 1px solid #b9cbd1; border-radius: 7px; cursor: pointer; }
 .page-button:hover:not(:disabled) { background: #eef8fa; border-color: #0b7285; }

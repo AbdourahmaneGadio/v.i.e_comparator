@@ -14,6 +14,7 @@ A React and TypeScript application for comparing V.I.E. indemnities across count
 - Filter by minimum and maximum total indemnity
 - Filter by geographic zone
 - Display country flags
+- Switch between English and French
 - Sort the table by clicking a column header
 - Browse results with pagination (10 countries per page)
 
@@ -34,6 +35,7 @@ A React and TypeScript application for comparing V.I.E. indemnities across count
 │   │   ├── Filters.tsx
 │   │   └── Pagination.tsx
 │   ├── data/countries_v.i.e_data.tsx
+│   ├── i18n.ts
 │   ├── App.test.tsx
 │   ├── App.tsx
 │   ├── main.tsx
@@ -83,6 +85,8 @@ npm run precommit # Run the checks enforced before commits
 ## Data
 
 Country indemnity data is stored in [`src/data/countries_v.i.e_data.tsx`](src/data/countries_v.i.e_data.tsx). The displayed total indemnity corresponds to the dataset’s `monthlyPay` value.
+
+The application uses the indemnity data for 2025. The source is the official [V.I.E./V.I.A. Business France website](https://mon-vie-via.businessfrance.fr).
 
 Country flags are provided by [`svg-country-flags`](https://github.com/hjnilsson/country-flags) and bundled in `public/flags`.
 
