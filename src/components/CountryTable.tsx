@@ -79,7 +79,7 @@ function CountryTable({
               <td>
                 <img
                   className="country-flag"
-                  src={`/flags/${getFlagCode(country.name)}.svg`}
+                  src={`${import.meta.env.BASE_URL}flags/${getFlagCode(country.name)}.svg`}
                   alt={translation.flagAlt(country.name)}
                 />
               </td>

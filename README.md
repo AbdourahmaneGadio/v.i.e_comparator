@@ -130,7 +130,7 @@ The GitHub Actions workflow runs tests, linting, and the production build for pu
 
 - GitHub Actions runs the pre-commit checks and E2E tests on every workflow run. The production and Docker builds run when application, test, or packaging files change.
 - Pushes to `main` deploy the application to [GitHub Pages](https://AbdourahmaneGadio.github.io/v.i.e_comparator/).
-- Push a version tag such as `v1.0.0` to create a GitHub release with generated release notes.
+- Push a version tag such as `0.0.1` to create a GitHub release with generated release notes.
 - Gitleaks scans commits and pull requests for accidentally committed secrets. Its current status is shown by the Gitleaks badge above.
 - Dependabot checks npm, GitHub Actions, and Docker dependencies weekly.
 - Docker images are published to GitHub Container Registry after successful pushes to `main`.

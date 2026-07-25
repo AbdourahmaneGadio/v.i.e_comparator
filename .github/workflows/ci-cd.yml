@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches: [main]
-    tags: ['v*.*.*']
+    tags: ['v*.*.*', '*.*.*']
   pull_request:
     branches: [main]
 
@@ -148,7 +148,7 @@ jobs:
     name: Create GitHub release
     needs: quality
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: write
 
@@ -156,4 +156,5 @@ jobs:
       - name: Create release from tag
         uses: softprops/action-gh-release@v2
         with:
+          name: ${{ github.ref_name }}
           generate_release_notes: true
