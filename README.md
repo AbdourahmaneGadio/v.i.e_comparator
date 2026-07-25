@@ -126,7 +126,7 @@ The GitHub Actions workflow runs tests, linting, and the production build for pu
 
 ## Automation
 
-- GitHub Actions runs the pre-commit checks, production build, and Docker pipeline.
+- GitHub Actions runs the pre-commit checks and E2E tests on every workflow run. The production and Docker builds run when application, test, or packaging files change.
 - Gitleaks scans commits and pull requests for accidentally committed secrets. Its current status is shown by the Gitleaks badge above.
 - Dependabot checks npm, GitHub Actions, and Docker dependencies weekly.
 - Docker images are published to GitHub Container Registry after successful pushes to `main`.

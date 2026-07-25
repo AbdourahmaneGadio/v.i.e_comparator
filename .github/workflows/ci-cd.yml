@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 env:
   REGISTRY: ghcr.io
@@ -18,9 +19,30 @@ jobs:
     name: Test and build
     runs-on: ubuntu-latest
 
+    outputs:
+      application_or_tests: ${{ steps.changes.outputs.application_or_tests }}
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+
+      - name: Detect application or test changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            application_or_tests:
+              - 'src/**'
+              - 'public/**'
+              - 'e2e/**'
+              - 'index.html'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'playwright.config.ts'
+              - 'tsconfig*.json'
+              - 'vite.config.*'
+              - 'Dockerfile'
+              - 'nginx.conf'
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -35,6 +57,7 @@ jobs:
         run: npm run precommit
 
       - name: Build application
+        if: steps.changes.outputs.application_or_tests == 'true'
         run: npm run build
 
       - name: Install Playwright browsers
@@ -47,7 +70,7 @@ jobs:
     name: Build and publish container
     needs: quality
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: needs.quality.outputs.application_or_tests == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
       packages: write
