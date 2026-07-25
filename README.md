@@ -1,6 +1,7 @@
 # V.I.E Comparator
 
 [![CI/CD](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/ci-cd.yml)
+[![Gitleaks](https://img.shields.io/github/actions/workflow/status/AbdourahmaneGadio/v.i.e_comparator/gitleaks.yml?branch=main&label=gitleaks)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/gitleaks.yml)
 [![Last commit](https://img.shields.io/github/last-commit/AbdourahmaneGadio/v.i.e_comparator)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/commits/main)
 [![Repository size](https://img.shields.io/github/repo-size/AbdourahmaneGadio/v.i.e_comparator)](https://github.com/AbdourahmaneGadio/v.i.e_comparator)
 
@@ -24,7 +25,9 @@ A React and TypeScript application for comparing V.I.E. indemnities across count
 .
 ├── .github/
 │   ├── dependabot.yml
-│   └── workflows/ci-cd.yml
+│   └── workflows/
+│       ├── ci-cd.yml
+│       └── gitleaks.yml
 ├── .husky/pre-commit
 ├── docs/screenshot.png
 ├── e2e/app.spec.ts
@@ -121,6 +124,7 @@ The GitHub Actions workflow runs tests, linting, and the production build for pu
 ## Automation
 
 - GitHub Actions runs the pre-commit checks, production build, and Docker pipeline.
+- Gitleaks scans commits and pull requests for accidentally committed secrets. Its current status is shown by the Gitleaks badge above.
 - Dependabot checks npm, GitHub Actions, and Docker dependencies weekly.
 - Docker images are published to GitHub Container Registry after successful pushes to `main`.
 
