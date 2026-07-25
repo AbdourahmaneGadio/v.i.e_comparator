@@ -1,7 +1,10 @@
 # V.I.E Comparator
 
-[![CI/CD](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/ci-cd.yml)
+[![CI/CD](https://img.shields.io/github/actions/workflow/status/AbdourahmaneGadio/v.i.e_comparator/ci-cd.yml?branch=main&label=CI%2FCD)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/ci-cd.yml)
 [![Gitleaks](https://img.shields.io/github/actions/workflow/status/AbdourahmaneGadio/v.i.e_comparator/gitleaks.yml?branch=main&label=gitleaks)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/actions/workflows/gitleaks.yml)
+[![Node.js](https://img.shields.io/badge/node.js-24.x-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Playwright](https://img.shields.io/badge/e2e-Playwright-45ba4b?logo=playwright&logoColor=white)](https://playwright.dev/)
 [![Last commit](https://img.shields.io/github/last-commit/AbdourahmaneGadio/v.i.e_comparator)](https://github.com/AbdourahmaneGadio/v.i.e_comparator/commits/main)
 [![Repository size](https://img.shields.io/github/repo-size/AbdourahmaneGadio/v.i.e_comparator)](https://github.com/AbdourahmaneGadio/v.i.e_comparator)
 
