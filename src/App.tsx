@@ -439,6 +439,12 @@ function App() {
             aria-label={translation.switchLanguage}
             onClick={() => setLanguage(language === "en" ? "fr" : "en")}
           >
+            <img
+              className="language-flag"
+              src={`${import.meta.env.BASE_URL}flags/${language === "en" ? "fr" : "gb"}.svg`}
+              alt=""
+              aria-hidden="true"
+            />
             {translation.switchLanguage}
           </button>
         </div>

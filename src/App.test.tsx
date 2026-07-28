@@ -187,6 +187,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
+    expect(within(screen.getByTestId("language-toggle")).getByRole("presentation", { hidden: true })).toHaveAttribute("src", "/flags/fr.svg");
     await user.click(screen.getByTestId("language-toggle"));
 
     expect(screen.getByRole("heading", { name: "Comparateur V.I.E." })).toBeInTheDocument();
@@ -198,6 +199,7 @@ describe("Integration tests: V.I.E Comparator", () => {
       "https://mon-vie-via.businessfrance.fr",
     );
     expect(screen.getByRole("button", { name: "English" })).toBeInTheDocument();
+    expect(within(screen.getByTestId("language-toggle")).getByRole("presentation", { hidden: true })).toHaveAttribute("src", "/flags/gb.svg");
   });
 
   it("uses sentence case and accents for French country names", async () => {
