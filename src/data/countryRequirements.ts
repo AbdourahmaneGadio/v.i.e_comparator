@@ -39,6 +39,10 @@ export interface CountryRequirement {
   englishImageUrl: string | undefined;
 }
 
+const frenchRequirementImages: Record<string, string> = {
+  inde: "https://images.prismic.io/civiwebprod/aV6FLHNYClf9o3X6_INDEJanvier2026FR.png?auto=format,compress",
+};
+
 const englishRequirementImages: Record<string, string> = {
   taiwan: "https://images.prismic.io/civiwebprod/AJ-FKUJfkFFFZfPf_TAIWANEN.png?auto=format,compress",
   suisse: "https://images.prismic.io/civiwebprod/aE_kErNJEFaPX--F_SUISSEEN.png?auto=format,compress",
@@ -177,7 +181,7 @@ for (const result of document.results) {
     englishName: englishName.toLocaleLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase()),
     frenchUrl: `https://mon-vie-via.businessfrance.fr/destinations/${result.uid}`,
     englishUrl: `https://mon-vie-via.businessfrance.fr/en/destinations/${englishUid}`,
-    frenchImageUrl: (() => {
+    frenchImageUrl: frenchRequirementImages[result.uid] ?? (() => {
       const image = getRequirementImage(result);
       return image && !/EN\.png/i.test(image) ? image : undefined;
     })(),

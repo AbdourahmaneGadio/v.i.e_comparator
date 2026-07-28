@@ -243,4 +243,18 @@ describe("V.I.E Comparator", () => {
     await user.click(screen.getByRole("button", { name: "Close country requirements" }));
     expect(screen.queryByTestId("country-details")).not.toBeInTheDocument();
   });
+
+  it("shows the French India requirements image", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByTestId("language-toggle"));
+    await user.type(screen.getByTestId("name-filter"), "INDE");
+    await user.click(screen.getByRole("button", { name: "Inde (Bangalore)" }));
+
+    expect(screen.getByRole("img", { name: "Conditions d'affectation en Inde (Bangalore)" })).toHaveAttribute(
+      "src",
+      "https://images.prismic.io/civiwebprod/aV6FLHNYClf9o3X6_INDEJanvier2026FR.png?auto=format,compress",
+    );
+  });
 });
