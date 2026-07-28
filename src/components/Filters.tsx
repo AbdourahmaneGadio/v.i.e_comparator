@@ -1,19 +1,19 @@
 import type { ChangeEvent } from "react";
 import type { Translation } from "../i18n";
-import type { CriteriaFilter, Zone } from "../types";
+import type { CriteriaFilter, SelectedZones, Zone } from "../types";
 
 interface FiltersProps {
   nameSearch: string;
   minimumIndemnity: string;
   maximumIndemnity: string;
-  selectedZone: Zone | "";
+  selectedZones: SelectedZones;
   criteriaFilter: CriteriaFilter;
   zones: readonly Zone[];
   translation: Translation;
   onNameChange: (value: string) => void;
   onMinimumChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onMaximumChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onZoneChange: (value: Zone | "") => void;
+  onZoneChange: (value: SelectedZones) => void;
   onCriteriaFilterChange: (value: CriteriaFilter) => void;
   onReset: () => void;
 }
@@ -22,7 +22,7 @@ function Filters({
   nameSearch,
   minimumIndemnity,
   maximumIndemnity,
-  selectedZone,
+  selectedZones,
   criteriaFilter,
   zones,
   translation,
@@ -61,16 +61,44 @@ function Filters({
 
       <label>
         {translation.zone}
-        <select
+        <details
+          className="zone-dropdown"
           data-testid="zone-filter"
-          value={selectedZone}
-          onChange={(event) => onZoneChange(event.target.value as Zone | "")}
         >
-          <option value="">{translation.allZones}</option>
-          {zones.map((zone) => (
-            <option key={zone} value={zone}>{translation.zones[zone]}</option>
-          ))}
-        </select>
+          <summary data-testid="zone-filter-summary">
+            <span className="zone-filter-summary-text">
+              {selectedZones.length === 0
+                ? translation.allZones
+                : selectedZones.map((zone) => translation.zones[zone]).join(", ")}
+            </span>
+          </summary>
+          <div className="zone-options">
+            <label>
+              <input
+                data-testid="zone-option-all"
+                type="checkbox"
+                checked={selectedZones.length === 0}
+                onChange={() => onZoneChange([])}
+              />
+              {translation.allZones}
+            </label>
+            {zones.map((zone) => (
+              <label key={zone}>
+                <input
+                  data-testid={`zone-option-${zone}`}
+                  type="checkbox"
+                  checked={selectedZones.includes(zone)}
+                  onChange={(event) => onZoneChange(
+                    event.target.checked
+                      ? [...selectedZones, zone]
+                      : selectedZones.filter((selectedZone) => selectedZone !== zone),
+                  )}
+                />
+                {translation.zones[zone]}
+              </label>
+            ))}
+          </div>
+        </details>
       </label>
 
       <label>

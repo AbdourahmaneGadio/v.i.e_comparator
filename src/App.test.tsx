@@ -64,12 +64,30 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(getCountryNames()).not.toContain("Afghanistan");
 
     await user.clear(screen.getByTestId("name-filter"));
-    await user.selectOptions(screen.getByTestId("zone-filter"), "AFRIQUE DU NORD");
+    await user.click(screen.getByTestId("zone-filter-summary"));
+    await user.click(screen.getByTestId("zone-option-AFRIQUE DU NORD"));
 
     expect(getCountryNames()).toEqual(expect.arrayContaining([
       "Algeria (other cities)",
       "Egypt",
       "Tunisia",
+    ]));
+    expect(getCountryNames()).not.toContain("Germany (Berlin)");
+  });
+
+  it("filters countries by multiple zones", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByTestId("zone-filter-summary"));
+    await user.click(screen.getByTestId("zone-option-AFRIQUE DU NORD"));
+    await user.click(screen.getByTestId("zone-option-AMERIQUE DU NORD"));
+
+    expect(screen.getByTestId("zone-filter-summary")).toHaveTextContent("North Africa, North America");
+    expect(getCountryNames()).toEqual(expect.arrayContaining([
+      "Algeria (other cities)",
+      "Canada (Ottawa)",
+      "Egypt",
     ]));
     expect(getCountryNames()).not.toContain("Germany (Berlin)");
   });

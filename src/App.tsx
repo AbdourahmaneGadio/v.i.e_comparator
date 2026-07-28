@@ -9,7 +9,7 @@ import {
   hasCountryRequirements,
 } from "./data/countryRequirements";
 import { translations, type Language } from "./i18n";
-import { ZONES, type CriteriaFilter, type SortColumn, type SortDirection, type Zone } from "./types";
+import { ZONES, type CriteriaFilter, type SelectedZones, type SortColumn, type SortDirection, type Zone } from "./types";
 
 const pageSize = 10;
 
@@ -346,7 +346,7 @@ function App() {
   const [nameSearch, setNameSearch] = useState("");
   const [minimumIndemnity, setMinimumIndemnity] = useState("");
   const [maximumIndemnity, setMaximumIndemnity] = useState("");
-  const [selectedZone, setSelectedZone] = useState<Zone | "">("");
+  const [selectedZones, setSelectedZones] = useState<SelectedZones>([]);
   const [criteriaFilter, setCriteriaFilter] = useState<CriteriaFilter>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortColumn>("name");
@@ -365,7 +365,7 @@ function App() {
         || displayName.toLocaleLowerCase().includes(normalizedName);
       const matchesMinimum = minimum === null || country.monthlyPay >= minimum;
       const matchesMaximum = maximum === null || country.monthlyPay <= maximum;
-      const matchesZone = selectedZone === "" || getZone(country.name) === selectedZone;
+      const matchesZone = selectedZones.length === 0 || selectedZones.includes(getZone(country.name));
       const matchesCriteria = criteriaFilter === "all"
         || (criteriaFilter === "yes" && hasCountryRequirements(country.name))
         || (criteriaFilter === "no" && !hasCountryRequirements(country.name));
@@ -386,7 +386,7 @@ function App() {
 
       return sortDirection === "ascending" ? comparison : -comparison;
     });
-  }, [criteriaFilter, language, maximumIndemnity, minimumIndemnity, nameSearch, selectedZone, sortColumn, sortDirection]);
+  }, [criteriaFilter, language, maximumIndemnity, minimumIndemnity, nameSearch, selectedZones, sortColumn, sortDirection]);
 
   const totalPages = Math.ceil(sortedCountries.length / pageSize);
   const visiblePage = totalPages === 0 ? 1 : Math.min(currentPage, totalPages);
@@ -419,7 +419,7 @@ function App() {
     setNameSearch("");
     setMinimumIndemnity("");
     setMaximumIndemnity("");
-    setSelectedZone("");
+    setSelectedZones([]);
     setCriteriaFilter("all");
     setCurrentPage(1);
   };
@@ -449,7 +449,7 @@ function App() {
         nameSearch={nameSearch}
         minimumIndemnity={minimumIndemnity}
         maximumIndemnity={maximumIndemnity}
-        selectedZone={selectedZone}
+        selectedZones={selectedZones}
         criteriaFilter={criteriaFilter}
         zones={ZONES}
         translation={translation}
@@ -460,7 +460,7 @@ function App() {
         onMinimumChange={(event) => handleNumberChange(setMinimumIndemnity, event)}
         onMaximumChange={(event) => handleNumberChange(setMaximumIndemnity, event)}
         onZoneChange={(value) => {
-          setSelectedZone(value);
+          setSelectedZones(value);
           setCurrentPage(1);
         }}
         onCriteriaFilterChange={(value) => {

@@ -19,6 +19,7 @@ export const ZONES = [
 ] as const;
 
 export type Zone = (typeof ZONES)[number];
+export type SelectedZones = Zone[];
 
 export type SortColumn =
   | "name"
