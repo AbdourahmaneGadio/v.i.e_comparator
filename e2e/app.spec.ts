@@ -29,6 +29,7 @@ test.describe("End-to-end filtering", () => {
 
     await page.getByRole("searchbox").fill("");
     await page.getByTestId("zone-filter-summary").click();
+    await expect(page.getByTestId("zone-option-AFRIQUE DU NORD")).toBeVisible();
     await page.getByTestId("zone-option-AFRIQUE DU NORD").check();
     await expect(page.getByText("Algeria (other cities)")).toBeVisible();
     await expect(page.getByText("Egypt")).toBeVisible();

@@ -80,6 +80,8 @@ describe("Integration tests: V.I.E Comparator", () => {
     render(<App />);
 
     await user.click(screen.getByTestId("zone-filter-summary"));
+    expect(screen.getByTestId("zone-option-AFRIQUE DU NORD")).toBeInTheDocument();
+    expect(screen.getByTestId("zone-option-AMERIQUE DU NORD")).toBeInTheDocument();
     await user.click(screen.getByTestId("zone-option-AFRIQUE DU NORD"));
     await user.click(screen.getByTestId("zone-option-AMERIQUE DU NORD"));
 
