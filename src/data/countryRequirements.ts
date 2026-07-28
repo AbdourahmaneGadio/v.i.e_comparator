@@ -1,29 +1,12 @@
 import requirementsDocument from "./countries_requirements.json";
 
-interface RequirementText {
-  type?: string;
-  text?: string;
-  url?: string;
-}
-
-interface RequirementSlice {
-  slice_type?: string;
-  primary?: {
-    country?: {
-      countryName?: string;
-      countryNameEn?: string;
-    };
-    text?: RequirementText[];
-  };
-}
-
 interface RequirementResult {
   uid: string;
-  data: {
-    name: string;
-    body?: RequirementSlice[];
-  };
-  alternate_languages?: { uid?: string; lang?: string }[];
+  frenchName: string;
+  countryName: string;
+  englishName: string;
+  englishUid: string;
+  frenchImageUrl: string | null;
 }
 
 interface RequirementsDocument {
@@ -38,10 +21,6 @@ export interface CountryRequirement {
   frenchImageUrl: string | undefined;
   englishImageUrl: string | undefined;
 }
-
-const frenchRequirementImages: Record<string, string> = {
-  inde: "https://images.prismic.io/civiwebprod/aV6FLHNYClf9o3X6_INDEJanvier2026FR.png?auto=format,compress",
-};
 
 const englishRequirementImages: Record<string, string> = {
   taiwan: "https://images.prismic.io/civiwebprod/AJ-FKUJfkFFFZfPf_TAIWANEN.png?auto=format,compress",
@@ -127,17 +106,6 @@ const getRequirementKey = (countryName: string) => {
   return countryKeyAliases[key] ?? key;
 };
 
-const getCountryData = (result: RequirementResult) =>
-  result.data.body?.find((slice) => slice.slice_type === "offre_par_pays")?.primary?.country;
-
-const getRequirementImage = (result: RequirementResult) => {
-  const introduction = result.data.body?.find((slice) => slice.slice_type === "introduction");
-  const text = introduction?.primary?.text ?? [];
-  const vieHeadingIndex = text.findIndex((item) => item.text?.toLowerCase().includes("conditions pour partir en mission v.i.e"));
-  const image = text.slice(Math.max(vieHeadingIndex, 0)).find((item) => item.type === "image" && item.url);
-  return image?.url;
-};
-
 export const countryRequirements = new Map<string, CountryRequirement>();
 const countriesWithCriteria = new Set([
   "AUSTRALIE",
@@ -169,22 +137,14 @@ const countriesWithCriteria = new Set([
 ]);
 
 for (const result of document.results) {
-  const country = getCountryData(result);
-  const key = country?.countryName ? normalize(country.countryName) : normalize(result.data.name);
-  const englishName = country?.countryNameEn
-    ?? result.alternate_languages?.find((language) => language.lang === "en-us")?.uid
-    ?? result.data.name;
-  const englishUid = result.alternate_languages?.find((language) => language.lang === "en-us")?.uid ?? result.uid;
+  const key = normalize(result.countryName);
 
   countryRequirements.set(key, {
-    frenchName: result.data.name,
-    englishName: englishName.toLocaleLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase()),
+    frenchName: result.frenchName,
+    englishName: result.englishName.toLocaleLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase()),
     frenchUrl: `https://mon-vie-via.businessfrance.fr/destinations/${result.uid}`,
-    englishUrl: `https://mon-vie-via.businessfrance.fr/en/destinations/${englishUid}`,
-    frenchImageUrl: frenchRequirementImages[result.uid] ?? (() => {
-      const image = getRequirementImage(result);
-      return image && !/EN\.png/i.test(image) ? image : undefined;
-    })(),
+    englishUrl: `https://mon-vie-via.businessfrance.fr/en/destinations/${result.englishUid}`,
+    frenchImageUrl: result.frenchImageUrl ?? undefined,
     englishImageUrl: englishRequirementImages[result.uid] || undefined,
   });
 }
