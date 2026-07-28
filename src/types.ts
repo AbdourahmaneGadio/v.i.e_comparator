@@ -31,3 +31,4 @@ export type SortColumn =
 export type SortDirection = "ascending" | "descending";
 
 export type CriteriaFilter = "all" | "yes" | "no";
+export type Theme = "light" | "dark" | "oled";

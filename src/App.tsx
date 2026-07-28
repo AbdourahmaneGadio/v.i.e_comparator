@@ -8,12 +8,13 @@ import {
 } from "./data/countryRequirements";
 import { getCountryDisplayName, getFlagCode, getZone } from "./data/countryMetadata";
 import { translations, type Language } from "./i18n";
-import { ZONES, type CriteriaFilter, type SelectedZones, type SortColumn, type SortDirection } from "./types";
+import { ZONES, type CriteriaFilter, type SelectedZones, type SortColumn, type SortDirection, type Theme } from "./types";
 
 const pageSize = 10;
 
 function App() {
   const [language, setLanguage] = useState<Language>("en");
+  const [theme, setTheme] = useState<Theme>("light");
   const [nameSearch, setNameSearch] = useState("");
   const [minimumIndemnity, setMinimumIndemnity] = useState("");
   const [maximumIndemnity, setMaximumIndemnity] = useState("");
@@ -96,28 +97,41 @@ function App() {
   };
 
   return (
-    <main className="app-shell" lang={language}>
+    <main className={`app-shell${theme === "light" ? "" : ` ${theme}-theme`}`} lang={language}>
       <header className="page-header">
         <div className="header-row">
           <div>
             <p className="eyebrow">{translation.eyebrow}</p>
             <h1>{translation.title}</h1>
           </div>
-          <button
-            data-testid="language-toggle"
-            type="button"
-            className="language-toggle"
-            aria-label={translation.switchLanguage}
-            onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-          >
-            <img
-              className="language-flag"
-              src={`${import.meta.env.BASE_URL}flags/${language === "en" ? "fr" : "gb"}.svg`}
-              alt=""
-              aria-hidden="true"
-            />
-            {translation.switchLanguage}
-          </button>
+          <div className="header-actions">
+            <select
+              data-testid="theme-selector"
+              className="theme-selector"
+              aria-label={translation.themeSelection}
+              value={theme}
+              onChange={(event) => setTheme(event.target.value as Theme)}
+            >
+              <option value="light">☀ {translation.lightTheme}</option>
+              <option value="dark">☾ {translation.darkTheme}</option>
+              <option value="oled">◐ {translation.oledTheme}</option>
+            </select>
+            <button
+              data-testid="language-toggle"
+              type="button"
+              className="language-toggle"
+              aria-label={translation.switchLanguage}
+              onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+            >
+              <img
+                className="language-flag"
+                src={`${import.meta.env.BASE_URL}flags/${language === "en" ? "fr" : "gb"}.svg`}
+                alt=""
+                aria-hidden="true"
+              />
+              {translation.switchLanguage}
+            </button>
+          </div>
         </div>
         <p className="intro">{translation.intro}</p>
       </header>

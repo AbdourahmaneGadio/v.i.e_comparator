@@ -74,6 +74,7 @@ function CountryDetails({ country, language, translation, getFlagCode, getCountr
         {(requirement?.frenchImageUrl || requirement?.englishImageUrl) && (
           <img
             className="country-details-image"
+            tabIndex={0}
             src={language === "en"
               ? requirement?.englishImageUrl ?? requirement?.frenchImageUrl
               : requirement?.frenchImageUrl ?? requirement?.englishImageUrl}

@@ -202,6 +202,25 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(within(screen.getByTestId("language-toggle")).getByRole("presentation", { hidden: true })).toHaveAttribute("src", "/flags/gb.svg");
   });
 
+  it("toggles the dark theme accessibly", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const themeSelector = screen.getByTestId("theme-selector");
+    expect(themeSelector).toHaveValue("light");
+    expect(screen.getByRole("main")).not.toHaveClass("dark-theme");
+
+    await user.selectOptions(themeSelector, "dark");
+
+    expect(themeSelector).toHaveValue("dark");
+    expect(screen.getByRole("main")).toHaveClass("dark-theme");
+    expect(themeSelector).toHaveAccessibleName("Theme");
+
+    await user.selectOptions(themeSelector, "oled");
+    expect(screen.getByRole("main")).toHaveClass("oled-theme");
+    expect(themeSelector).toHaveValue("oled");
+  });
+
   it("uses sentence case and accents for French country names", async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -259,6 +278,7 @@ describe("Integration tests: V.I.E Comparator", () => {
       "src",
       "https://images.prismic.io/civiwebprod/aEKhE7h8WN-LVuKZ_CHINEEN.png?auto=format,compress",
     );
+    expect(screen.getByRole("img", { name: "China assignment conditions" })).toHaveAttribute("tabindex", "0");
 
     await user.click(screen.getByRole("button", { name: "Close country requirements" }));
     expect(screen.queryByTestId("country-details")).not.toBeInTheDocument();
