@@ -7,6 +7,7 @@ interface RequirementResult {
   englishName: string;
   englishUid: string;
   frenchImageUrl: string | null;
+  hasDetailedCriteria: boolean;
 }
 
 interface RequirementsDocument {
@@ -20,6 +21,7 @@ export interface CountryRequirement {
   englishUrl: string;
   frenchImageUrl: string | undefined;
   englishImageUrl: string | undefined;
+  hasDetailedCriteria: boolean;
 }
 
 const englishRequirementImages: Record<string, string> = {
@@ -146,6 +148,7 @@ for (const result of document.results) {
     englishUrl: `https://mon-vie-via.businessfrance.fr/en/destinations/${result.englishUid}`,
     frenchImageUrl: result.frenchImageUrl ?? undefined,
     englishImageUrl: englishRequirementImages[result.uid] || undefined,
+    hasDetailedCriteria: result.hasDetailedCriteria,
   });
 }
 

@@ -6,7 +6,8 @@
       "countryName": "TAIWAN",
       "englishName": "TAIWAN",
       "englishUid": "taiwan",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/qTtNwKsVznGpQiMK_TAIWANFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/qTtNwKsVznGpQiMK_TAIWANFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "suisse",
@@ -14,7 +15,8 @@
       "countryName": "SUISSE",
       "englishName": "SWITZERLAND",
       "englishUid": "switzerland",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_jsrNJEFaPX-9n_SUISSEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_jsrNJEFaPX-9n_SUISSEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "inde",
@@ -22,7 +24,8 @@
       "countryName": "INDE",
       "englishName": "INDIA",
       "englishUid": "india",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aV6FLHNYClf9o3X6_INDEJanvier2026FR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aV6FLHNYClf9o3X6_INDEJanvier2026FR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "royaume-uni",
@@ -30,7 +33,8 @@
       "countryName": "ROYAUME-UNI",
       "englishName": "UNITED KINGDOM",
       "englishUid": "uk",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aXIgowIvOtkhB0NX_ROYAUME-UNI-Janv.2026-FR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aXIgowIvOtkhB0NX_ROYAUME-UNI-Janv.2026-FR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "madagascar",
@@ -38,7 +42,8 @@
       "countryName": "MADAGASCAR",
       "englishName": "MADAGASCAR",
       "englishUid": "madagascar",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqDG7NJEFaPX45c_MADAGASCARFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqDG7NJEFaPX45c_MADAGASCARFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "etats-unis",
@@ -46,7 +51,8 @@
       "countryName": "ETATS-UNIS",
       "englishName": "UNITED STATES",
       "englishUid": "usa",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELkubh8WN-LVvtK_ETATS-UNISFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELkubh8WN-LVvtK_ETATS-UNISFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "indonesie",
@@ -54,7 +60,8 @@
       "countryName": "INDONÉSIE",
       "englishName": "indonesia",
       "englishUid": "indonesia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aKxxr2GNHVfTOSGl_IndoFRRedim.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aKxxr2GNHVfTOSGl_IndoFRRedim.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "hong-kong",
@@ -62,7 +69,8 @@
       "countryName": "CHINE",
       "englishName": "CHINA",
       "englishUid": "hong-kong",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL-kLh8WN-LVwZE_HONGKONGFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL-kLh8WN-LVwZE_HONGKONGFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "chili",
@@ -70,7 +78,8 @@
       "countryName": "CHILI",
       "englishName": "CHILE",
       "englishUid": "chile",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKbSbh8WN-LVuHq_CHILIFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKbSbh8WN-LVuHq_CHILIFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "cameroun",
@@ -78,7 +87,8 @@
       "countryName": "CAMEROUN",
       "englishName": "CAMEROON",
       "englishUid": "cameroon",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFeObh8WN-LVorT_CAMEROUNFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFeObh8WN-LVorT_CAMEROUNFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "cambodge",
@@ -86,7 +96,8 @@
       "countryName": "CAMBODGE",
       "englishName": "CAMBODIA",
       "englishUid": "cambodia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFcTbh8WN-LVopp_CAMBODGEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFcTbh8WN-LVopp_CAMBODGEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "benin",
@@ -94,7 +105,8 @@
       "countryName": "BENIN",
       "englishName": "BENIN",
       "englishUid": "benin",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFVwrh8WN-LVokb_BENINFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFVwrh8WN-LVokb_BENINFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "bulgarie",
@@ -102,7 +114,8 @@
       "countryName": "BULGARIE",
       "englishName": "BULGARIA",
       "englishUid": "bulgaria",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFZzrh8WN-LVonH_BULGARIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFZzrh8WN-LVonH_BULGARIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "chine",
@@ -110,7 +123,8 @@
       "countryName": "CHINE",
       "englishName": "CHINA",
       "englishUid": "china",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKgyrh8WN-LVuKP_CHINEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKgyrh8WN-LVuKP_CHINEFR.png?auto=format,compress",
+      "hasDetailedCriteria": true
     },
     {
       "uid": "bresil",
@@ -118,7 +132,8 @@
       "countryName": "BRESIL",
       "englishName": "BRAZIL",
       "englishUid": "brazil",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFXO7h8WN-LVolj_BRESILFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFXO7h8WN-LVolj_BRESILFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "autriche",
@@ -126,7 +141,8 @@
       "countryName": "AUTRICHE",
       "englishName": "AUSTRIA",
       "englishUid": "austria",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFSBrh8WN-LVohX_AUTRICHEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFSBrh8WN-LVohX_AUTRICHEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "senegal",
@@ -134,7 +150,8 @@
       "countryName": "SENEGAL",
       "englishName": "SENEGAL",
       "englishUid": "senegal",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_XUbNJEFaPX-1E_SENEGALFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_XUbNJEFaPX-1E_SENEGALFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "roumanie",
@@ -142,7 +159,8 @@
       "countryName": "ROUMANIE",
       "englishName": "ROMANIA",
       "englishUid": "romania",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEwskrNJEFaPX8s4_ROUMANIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEwskrNJEFaPX8s4_ROUMANIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "thailande",
@@ -150,7 +168,8 @@
       "countryName": "THAILANDE",
       "englishName": "THAILAND",
       "englishUid": "thailand",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_mrrNJEFaPX-_b_THA%C3%8FLANDEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_mrrNJEFaPX-_b_THA%C3%8FLANDEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "serbie",
@@ -158,7 +177,8 @@
       "countryName": "SERBIE",
       "englishName": "serbia",
       "englishUid": "serbia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_ZabNJEFaPX-2T_SERBIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_ZabNJEFaPX-2T_SERBIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "suede",
@@ -166,7 +186,8 @@
       "countryName": "SUEDE",
       "englishName": "SWEDEN",
       "englishUid": "sweden",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_gLrNJEFaPX-6l_SUEDEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_gLrNJEFaPX-6l_SUEDEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "turquie",
@@ -174,7 +195,8 @@
       "countryName": "TURQUIE",
       "englishName": "TURKEY",
       "englishUid": "turkey",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_owrNJEFaPX_A3_TURQUIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_owrNJEFaPX_A3_TURQUIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "colombie",
@@ -182,7 +204,8 @@
       "countryName": "COLOMBIE",
       "englishName": "COLOMBIA",
       "englishUid": "colombia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKl47h8WN-LVuM4_COLOMBIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKl47h8WN-LVuM4_COLOMBIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "danemark",
@@ -190,7 +213,8 @@
       "countryName": "DANEMARK",
       "englishName": "DENMARK",
       "englishUid": "denmark",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKw-Lh8WN-LVuVn_DANEMARKFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKw-Lh8WN-LVuVn_DANEMARKFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "espagne",
@@ -198,7 +222,8 @@
       "countryName": "ESPAGNE",
       "englishName": "SPAIN",
       "englishUid": "spain",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELir7h8WN-LVvpL_ESPAGNEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELir7h8WN-LVvpL_ESPAGNEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "ghana",
@@ -206,7 +231,8 @@
       "countryName": "GHANA",
       "englishName": "GHANA",
       "englishUid": "ghana",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL20Lh8WN-LVwMf_GHANAFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL20Lh8WN-LVwMf_GHANAFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "angola",
@@ -214,7 +240,8 @@
       "countryName": "ANGOLA",
       "englishName": "ANGOLA",
       "englishUid": "angola",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_vPrNJEFaPX_FJ_ANGOLAEN.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_vPrNJEFaPX_FJ_ANGOLAEN.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "canada",
@@ -222,7 +249,8 @@
       "countryName": "CANADA",
       "englishName": "CANADA",
       "englishUid": "canada",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFhjbh8WN-LVova_CANADAFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFhjbh8WN-LVova_CANADAFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "slovaquie",
@@ -230,7 +258,8 @@
       "countryName": "SLOVAQUIE",
       "englishName": "SLOVAKIA",
       "englishUid": "slovakia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_dIrNJEFaPX-4p_SLOVAQUIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_dIrNJEFaPX-4p_SLOVAQUIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "republique-tcheque",
@@ -238,7 +267,8 @@
       "countryName": "REPUBLIQUE TCHEQUE",
       "englishName": "CZECH REPUBLIC",
       "englishUid": "czech-republic",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEwhRbNJEFaPX8i__REPUBLIQUETCHEQUEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEwhRbNJEFaPX8i__REPUBLIQUETCHEQUEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "tunisie",
@@ -246,7 +276,8 @@
       "countryName": "TUNISIE",
       "englishName": "TUNISIA",
       "englishUid": "tunisia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_ntrNJEFaPX_AG_TUNISIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_ntrNJEFaPX_AG_TUNISIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "argentine",
@@ -254,7 +285,8 @@
       "countryName": "ARGENTINE",
       "englishName": "argentina",
       "englishUid": "argentina",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEBECLh8WN-LVlW__ARGENTINEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEBECLh8WN-LVlW__ARGENTINEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "singapour",
@@ -262,7 +294,8 @@
       "countryName": "SINGAPOUR",
       "englishName": "SINGAPORE",
       "englishUid": "singapore",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_aZbNJEFaPX-2y_SINGAPOURFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_aZbNJEFaPX-2y_SINGAPOURFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "vietnam",
@@ -270,7 +303,8 @@
       "countryName": "VIETNAM",
       "englishName": "VIETNAM",
       "englishUid": "vietnam",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_rD7NJEFaPX_Cy_VIETNAMFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aE_rD7NJEFaPX_Cy_VIETNAMFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "belgique",
@@ -278,7 +312,8 @@
       "countryName": "BELGIQUE",
       "englishName": "BELGIUM",
       "englishUid": "belgium",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFT7rh8WN-LVojV_BELGIQUEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEFT7rh8WN-LVojV_BELGIQUEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "israel",
@@ -286,7 +321,8 @@
       "countryName": "ISRAEL",
       "englishName": "ISRAEL",
       "englishUid": "israel",
-      "frenchImageUrl": null
+      "frenchImageUrl": null,
+      "hasDetailedCriteria": false
     },
     {
       "uid": "luxembourg",
@@ -294,7 +330,8 @@
       "countryName": "LUXEMBOURG",
       "englishName": "LUXEMBOURG",
       "englishUid": "luxembourg",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqBvrNJEFaPX44s_LUXEMBOURGFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqBvrNJEFaPX44s_LUXEMBOURGFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "panama",
@@ -302,7 +339,8 @@
       "countryName": "PANAMA",
       "englishName": "PANAMA",
       "englishUid": "panama",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErah7NJEFaPX6Fb_PANAMAFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErah7NJEFaPX6Fb_PANAMAFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "maroc",
@@ -310,7 +348,8 @@
       "countryName": "MAROC",
       "englishName": "MOROCCO",
       "englishUid": "morocco",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqNQbNJEFaPX5Bq_MAROCFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqNQbNJEFaPX5Bq_MAROCFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "nouvelle-zelande",
@@ -318,7 +357,8 @@
       "countryName": "NOUVELLE-ZELANDE",
       "englishName": "NEW ZEALAND",
       "englishUid": "new-zealand",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErYT7NJEFaPX6Cu_NOUVELLEZELANDEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErYT7NJEFaPX6Cu_NOUVELLEZELANDEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "mexique",
@@ -326,7 +366,8 @@
       "countryName": "MEXIQUE",
       "englishName": "MEXICO",
       "englishUid": "mexico",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqkYbNJEFaPX5Ue_MEXIQUEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqkYbNJEFaPX5Ue_MEXIQUEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "qatar",
@@ -334,7 +375,8 @@
       "countryName": "QATAR",
       "englishName": "qatar",
       "englishUid": "qatar",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEwfb7NJEFaPX8iG_QATARFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEwfb7NJEFaPX8iG_QATARFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "pologne",
@@ -342,7 +384,8 @@
       "countryName": "POLOGNE",
       "englishName": "POLAND",
       "englishUid": "poland",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErfRbNJEFaPX6OE_POLOGNEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErfRbNJEFaPX6OE_POLOGNEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "afrique-du-sud",
@@ -350,7 +393,8 @@
       "countryName": "AFRIQUE DU SUD",
       "englishName": "SOUTH AFRICA",
       "englishUid": "south-africa",
-      "frenchImageUrl": null
+      "frenchImageUrl": null,
+      "hasDetailedCriteria": false
     },
     {
       "uid": "malaisie",
@@ -358,7 +402,8 @@
       "countryName": "MALAISIE",
       "englishName": "MALAYSIA",
       "englishUid": "malaysia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqE_7NJEFaPX47b_MALAISIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEqE_7NJEFaPX47b_MALAISIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "norvege",
@@ -366,7 +411,8 @@
       "countryName": "NORVEGE",
       "englishName": "NORWAY",
       "englishUid": "norway",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErUrrNJEFaPX5_N_NORVEGEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErUrrNJEFaPX5_N_NORVEGEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "kenya",
@@ -374,7 +420,8 @@
       "countryName": "KENYA",
       "englishName": "KENYA",
       "englishUid": "kenya",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEmMh7NJEFaPX3on_KENYAFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEmMh7NJEFaPX3on_KENYAFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "portugal",
@@ -382,7 +429,8 @@
       "countryName": "PORTUGAL",
       "englishName": "PORTUGAL",
       "englishUid": "portugal",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEvYE7NJEFaPX72t_PORTUGALFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEvYE7NJEFaPX72t_PORTUGALFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "pays-bas",
@@ -390,7 +438,8 @@
       "countryName": "PAYS-BAS",
       "englishName": "NETHERLANDS",
       "englishUid": "netherlands",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErcb7NJEFaPX6KK_PAYS-BASFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aErcb7NJEFaPX6KK_PAYS-BASFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "irlande",
@@ -398,7 +447,8 @@
       "countryName": "IRLANDE",
       "englishName": "IRELAND",
       "englishUid": "ireland",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aElX07NJEFaPX3FH_IRLANDEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aElX07NJEFaPX3FH_IRLANDEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "japon",
@@ -406,7 +456,8 @@
       "countryName": "JAPON",
       "englishName": "JAPAN",
       "englishUid": "japan",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEl0W7NJEFaPX3XE_JAPONFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEl0W7NJEFaPX3XE_JAPONFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "italie",
@@ -414,7 +465,8 @@
       "countryName": "ITALIE",
       "englishName": "ITALY",
       "englishUid": "italy",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEly3LNJEFaPX3WK_ITALIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEly3LNJEFaPX3WK_ITALIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "hongrie",
@@ -422,7 +474,8 @@
       "countryName": "HONGRIE",
       "englishName": "HUNGARY",
       "englishUid": "hungary",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEfjLbh8WN-LV6t1_HONGRIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEfjLbh8WN-LV6t1_HONGRIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "cote-divoire",
@@ -430,7 +483,8 @@
       "countryName": "COTE D'IVOIRE",
       "englishName": "COTE D'IVOIRE",
       "englishUid": "cote-divoire",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKsl7h8WN-LVuRS_COTED%27IVOIREFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKsl7h8WN-LVuRS_COTED%27IVOIREFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "congo",
@@ -438,7 +492,8 @@
       "countryName": "CONGO",
       "englishName": "CONGO",
       "englishUid": "congo",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKm5Lh8WN-LVuNP_CONGOFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKm5Lh8WN-LVuNP_CONGOFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "finlande",
@@ -446,7 +501,8 @@
       "countryName": "FINLANDE",
       "englishName": "FINLAND",
       "englishUid": "finland",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELpQ7h8WN-LVv07_FINLANDEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELpQ7h8WN-LVv07_FINLANDEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "emirats-arabes-unis",
@@ -454,7 +510,8 @@
       "countryName": "EMIRATS ARABES UNIS",
       "englishName": "UNITED ARAB EMIRATES",
       "englishUid": "united-arab-emirates",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELhYrh8WN-LVvmn_EMIRATSARABESUNISFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aELhYrh8WN-LVvmn_EMIRATSARABESUNISFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "coree-du-sud",
@@ -462,7 +519,8 @@
       "countryName": "COREE DU SUD",
       "englishName": "SOUTH KOREA",
       "englishUid": "south-korea",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKqBLh8WN-LVuPT_COREEDUSUDFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEKqBLh8WN-LVuPT_COREEDUSUDFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "gabon",
@@ -470,7 +528,8 @@
       "countryName": "GABON",
       "englishName": "GABON",
       "englishUid": "gabon",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL0tbh8WN-LVwJK_GABONFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL0tbh8WN-LVwJK_GABONFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "grece",
@@ -478,7 +537,8 @@
       "countryName": "GRÈCE",
       "englishName": "greece",
       "englishUid": "greece",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL6Gbh8WN-LVwSC_GRECEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEL6Gbh8WN-LVwSC_GRECEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "ile-maurice",
@@ -486,7 +546,8 @@
       "countryName": "MAURICE",
       "englishName": "MAURITIUS",
       "englishUid": "mauritus",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEfkXrh8WN-LV6ub_ILEMAURICEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEfkXrh8WN-LV6ub_ILEMAURICEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "australie",
@@ -494,7 +555,8 @@
       "countryName": "AUSTRALIE",
       "englishName": "AUSTRALIA",
       "englishUid": "australia",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEBPmbh8WN-LVlv__AUSTRALIEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEBPmbh8WN-LVlv__AUSTRALIEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "allemagne",
@@ -502,7 +564,8 @@
       "countryName": "ALLEMAGNE",
       "englishName": "GERMANY",
       "englishUid": "germany",
-      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEA8-rh8WN-LVlOi_ALLEMAGNEFR.png?auto=format,compress"
+      "frenchImageUrl": "https://images.prismic.io/civiwebprod/aEA8-rh8WN-LVlOi_ALLEMAGNEFR.png?auto=format,compress",
+      "hasDetailedCriteria": false
     },
     {
       "uid": "russie",
@@ -510,7 +573,8 @@
       "countryName": "RUSSIE",
       "englishName": "RUSSIA",
       "englishUid": "russia",
-      "frenchImageUrl": null
+      "frenchImageUrl": null,
+      "hasDetailedCriteria": false
     }
   ]
 }
