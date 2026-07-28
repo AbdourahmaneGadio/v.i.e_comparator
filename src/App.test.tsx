@@ -26,19 +26,19 @@ describe("V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.type(screen.getByTestId("name-filter"), "Allemagne");
-    expect(getCountryNames()).toContain("ALLEMAGNE (Berlin)");
-    expect(getCountryNames()).not.toContain("AFGHANISTAN");
+    await user.type(screen.getByTestId("name-filter"), "Germany");
+    expect(getCountryNames()).toContain("Germany (Berlin)");
+    expect(getCountryNames()).not.toContain("Afghanistan");
 
     await user.clear(screen.getByTestId("name-filter"));
     await user.selectOptions(screen.getByTestId("zone-filter"), "AFRIQUE DU NORD");
 
     expect(getCountryNames()).toEqual(expect.arrayContaining([
-      "ALGERIE (autres villes)",
-      "EGYPTE",
-      "TUNISIE",
+      "Algeria (other cities)",
+      "Egypt",
+      "Tunisia",
     ]));
-    expect(getCountryNames()).not.toContain("ALLEMAGNE (Berlin)");
+    expect(getCountryNames()).not.toContain("Germany (Berlin)");
   });
 
   it("sorts the table when a column header is clicked", async () => {
@@ -47,10 +47,10 @@ describe("V.I.E Comparator", () => {
 
     const nameHeader = screen.getByTestId("sort-name");
     await user.click(nameHeader);
-    expect(getFirstCountryName()).toBe("ZIMBABWE");
+    expect(getFirstCountryName()).toBe("Zimbabwe");
 
     await user.click(nameHeader);
-    expect(getFirstCountryName()).toBe("AFGHANISTAN");
+    expect(getFirstCountryName()).toBe("Afghanistan");
   });
 
   it("moves to the next page", async () => {
@@ -60,7 +60,76 @@ describe("V.I.E Comparator", () => {
     await user.click(screen.getByTestId("next-page"));
 
     expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 2 of 24");
-    expect(getFirstCountryName()).toBe("ANDORRE");
+    expect(getFirstCountryName()).toBe("Australia (Sydney)");
+  });
+
+  it("translates country names and regional variants in English", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.type(screen.getByTestId("name-filter"), "China");
+    expect(getCountryNames()).toEqual(expect.arrayContaining([
+      "China (Beijing)",
+      "China (Hong Kong)",
+      "China (Shanghai)",
+      "China (Wuhan, Guangzhou)",
+    ]));
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "Cayman");
+    expect(getCountryNames()).toContain("Cayman Islands");
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "United States");
+    expect(getCountryNames()).toContain("United States (California)");
+  });
+
+  it("uses JSON requirements for countries beyond China", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.type(screen.getByTestId("name-filter"), "Germany");
+    await user.click(screen.getByRole("button", { name: "Germany (Berlin)" }));
+
+    expect(screen.getByRole("img", { name: /Germany \(Berlin\) assignment conditions/ })).toHaveAttribute(
+      "src",
+      "https://images.prismic.io/civiwebprod/aEA_aLh8WN-LVlQ6_ALLEMAGNEEN.png?auto=format,compress",
+    );
+    expect(screen.getByRole("link", { name: /View official/ })).toHaveAttribute(
+      "href",
+      "https://mon-vie-via.businessfrance.fr/en/destinations/germany",
+    );
+
+    await user.click(screen.getByTestId("language-toggle"));
+
+    expect(screen.getByRole("link", { name: /Voir la page officielle/ })).toHaveAttribute(
+      "href",
+      "https://mon-vie-via.businessfrance.fr/destinations/allemagne",
+    );
+    expect(screen.getByRole("img", { name: /Conditions d'affectation en ALLEMAGNE/ })).toHaveAttribute(
+      "src",
+      "https://images.prismic.io/civiwebprod/aEA8-rh8WN-LVlOi_ALLEMAGNEFR.png?auto=format,compress",
+    );
+  });
+
+  it("uses the English requirement image for Benin", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.type(screen.getByTestId("name-filter"), "Benin");
+    await user.click(screen.getByRole("button", { name: "Benin" }));
+
+    expect(screen.getByRole("img", { name: "Benin assignment conditions" })).toHaveAttribute(
+      "src",
+      "https://images.prismic.io/civiwebprod/aEFWkbh8WN-LVokx_BENINEN.png?auto=format,compress",
+    );
+
+    await user.click(screen.getByTestId("language-toggle"));
+
+    expect(screen.getByRole("img", { name: "Conditions d'affectation en BENIN" })).toHaveAttribute(
+      "src",
+      "https://images.prismic.io/civiwebprod/aEFVwrh8WN-LVokb_BENINFR.png?auto=format,compress",
+    );
   });
 
   it("switches between English and French", async () => {

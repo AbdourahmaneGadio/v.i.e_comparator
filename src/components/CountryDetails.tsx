@@ -1,23 +1,28 @@
 import type { Translation } from "../i18n";
 import type { Country } from "../types";
+import { getCountryRequirement } from "../data/countryRequirements";
 
 interface CountryDetailsProps {
   country: Country;
   language: "en" | "fr";
   translation: Translation;
   getFlagCode: (countryName: string) => string;
+  getCountryDisplayName: (countryName: string) => string;
   onClose: () => void;
 }
 
 const getCountryKey = (countryName: string) => countryName.split(" (")[0];
 
-function CountryDetails({ country, language, translation, getFlagCode, onClose }: CountryDetailsProps) {
+function CountryDetails({ country, language, translation, getFlagCode, getCountryDisplayName, onClose }: CountryDetailsProps) {
   const isChina = getCountryKey(country.name) === "CHINE";
-  const displayName = isChina ? (language === "en" ? "China" : "Chine") : country.name;
+  const requirement = getCountryRequirement(country.name);
+  const displayName = isChina ? (language === "en" ? "China" : "Chine") : getCountryDisplayName(country.name);
   const image = language === "fr"
     ? "https://images.prismic.io/civiwebprod/aEKgyrh8WN-LVuKP_CHINEFR.png?auto=format,compress"
     : "https://images.prismic.io/civiwebprod/aEKhE7h8WN-LVuKZ_CHINEEN.png?auto=format,compress";
-  const destinationUrl = isChina
+  const destinationUrl = requirement
+    ? (language === "fr" ? requirement.frenchUrl : requirement.englishUrl)
+    : isChina
     ? (language === "fr"
       ? "https://mon-vie-via.businessfrance.fr/destinations/chine"
       : "https://mon-vie-via.businessfrance.fr/en/destinations/china")
@@ -64,7 +69,7 @@ function CountryDetails({ country, language, translation, getFlagCode, onClose }
           ) : (
             <>
               <h3>{translation.eligibilityTitle}</h3>
-              <p>{translation.countryDetailsUnavailable}</p>
+              <p>{requirement ? translation.eligibilityText : translation.countryDetailsUnavailable}</p>
               <h3>{translation.assignmentTitle}</h3>
               <p>{translation.assignmentText}</p>
             </>
@@ -74,7 +79,17 @@ function CountryDetails({ country, language, translation, getFlagCode, onClose }
             {translation.officialDestination} ↗
           </a>
         </div>
-        {isChina && <img className="country-details-image" src={image} alt={translation.countryImageAlt(displayName)} />}
+        {(isChina || requirement?.frenchImageUrl || requirement?.englishImageUrl) && (
+          <img
+            className="country-details-image"
+            src={isChina
+              ? image
+              : language === "en"
+                ? requirement?.englishImageUrl ?? requirement?.frenchImageUrl
+                : requirement?.frenchImageUrl ?? requirement?.englishImageUrl}
+            alt={translation.countryImageAlt(displayName)}
+          />
+        )}
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import countriesData from "./data/countries_v.i.e_data";
 import CountryTable from "./components/CountryTable";
 import Filters from "./components/Filters";
 import CountryDetails from "./components/CountryDetails";
+import { getCountryRequirementEnglishName } from "./data/countryRequirements";
 import { translations, type Language } from "./i18n";
 import { ZONES, type SortColumn, type SortDirection, type Zone } from "./types";
 
@@ -202,6 +203,72 @@ const flagCodeByCountry = {
 const getFlagCode = (countryName: string) =>
   flagCodeByCountry[getCountryKey(countryName) as keyof typeof flagCodeByCountry] ?? "";
 
+const englishCountryNames = new Intl.DisplayNames(["en"], { type: "region" });
+const englishCountryOverrides: Record<string, string> = {
+  CAIMANS: "Cayman Islands",
+  JERUSALEM: "Jerusalem",
+  MACAO: "Macao",
+  SALOMON: "Solomon Islands",
+  TAIPEI: "Taipei",
+};
+const englishLocationReplacements: [RegExp, string][] = [
+  [/autres villes francophones/gi, "other French-speaking cities"],
+  [/autres villes anglophones/gi, "other English-speaking cities"],
+  [/autres villes/gi, "other cities"],
+  [/Abou-Dhabi/g, "Abu Dhabi"],
+  [/Californie/g, "California"],
+  [/Caroline du Nord/g, "North Carolina"],
+  [/Caroline du Sud/g, "South Carolina"],
+  [/Bombay/g, "Mumbai"],
+  [/Calcutta/g, "Kolkata"],
+  [/Canton/g, "Guangzhou"],
+  [/Edimbourg/g, "Edinburgh"],
+  [/Etat de Washington/g, "State of Washington"],
+  [/Etat de New York/g, "State of New York"],
+  [/Genève/g, "Geneva"],
+  [/Georgie/g, "Georgia"],
+  [/Hambourg/g, "Hamburg"],
+  [/Hawaï/g, "Hawaii"],
+  [/Hong-Kong/g, "Hong Kong"],
+  [/Izmir/g, "Izmir"],
+  [/Louisiane/g, "Louisiana"],
+  [/Londres/g, "London"],
+  [/Nouveau-Mexique/g, "New Mexico"],
+  [/Mexico/g, "Mexico City"],
+  [/Moscou/g, "Moscow"],
+  [/Pennsylvanie/g, "Pennsylvania"],
+  [/Pékin/g, "Beijing"],
+  [/Porto Rico/g, "Puerto Rico"],
+  [/Saint-Pétersbourg/g, "Saint Petersburg"],
+  [/Dakota du Nord/g, "North Dakota"],
+  [/Dakota du Sud/g, "South Dakota"],
+  [/Virginie Occidentale/g, "West Virginia"],
+  [/Shanghai/g, "Shanghai"],
+  [/Tokyo/g, "Tokyo"],
+  [/Wuhan/g, "Wuhan"],
+];
+
+const getCountryDisplayName = (countryName: string, language: Language) => {
+  if (language === "fr") return countryName;
+
+  const countryKey = getCountryKey(countryName);
+  const countryCode = getFlagCode(countryName).toUpperCase();
+  const translatedCountry = getCountryRequirementEnglishName(countryName)
+    ?? englishCountryOverrides[countryKey]
+    ?? (countryCode === "" ? countryKey : englishCountryNames.of(countryCode))
+    ?? countryKey;
+
+  if (englishCountryOverrides[countryKey] && (countryKey === "CAIMANS" || countryKey === "SALOMON")) {
+    return translatedCountry;
+  }
+
+  const suffix = countryName.slice(countryKey.length);
+  return englishLocationReplacements.reduce(
+    (translatedSuffix, [pattern, replacement]) => translatedSuffix.replace(pattern, replacement),
+    `${translatedCountry}${suffix}`,
+  );
+};
+
 const countriesByZone: Record<Zone, readonly string[]> = {
   "AFRIQUE DU NORD": ["ALGERIE", "EGYPTE", "LIBYE", "MAROC", "MAURITANIE", "TUNISIE"],
   "AFRIQUE SUBSAHARIENNE": [
@@ -272,7 +339,9 @@ function App() {
     const maximum = maximumIndemnity === "" ? null : Number(maximumIndemnity);
 
     const filteredCountries = countriesData.filter((country) => {
-      const matchesName = country.name.toLocaleLowerCase().includes(normalizedName);
+      const displayName = getCountryDisplayName(country.name, language);
+      const matchesName = country.name.toLocaleLowerCase().includes(normalizedName)
+        || displayName.toLocaleLowerCase().includes(normalizedName);
       const matchesMinimum = minimum === null || country.monthlyPay >= minimum;
       const matchesMaximum = maximum === null || country.monthlyPay <= maximum;
       const matchesZone = selectedZone === "" || getZone(country.name) === selectedZone;
@@ -281,15 +350,19 @@ function App() {
     });
 
     return [...filteredCountries].sort((firstCountry, secondCountry) => {
-      const firstValue = sortColumn === "zone" ? getZone(firstCountry.name) : firstCountry[sortColumn];
-      const secondValue = sortColumn === "zone" ? getZone(secondCountry.name) : secondCountry[sortColumn];
+      const firstValue = sortColumn === "zone"
+        ? getZone(firstCountry.name)
+        : sortColumn === "name" ? getCountryDisplayName(firstCountry.name, language) : firstCountry[sortColumn];
+      const secondValue = sortColumn === "zone"
+        ? getZone(secondCountry.name)
+        : sortColumn === "name" ? getCountryDisplayName(secondCountry.name, language) : secondCountry[sortColumn];
       const comparison = typeof firstValue === "string"
         ? firstValue.localeCompare(secondValue as string, "fr")
         : firstValue - (secondValue as number);
 
       return sortDirection === "ascending" ? comparison : -comparison;
     });
-  }, [maximumIndemnity, minimumIndemnity, nameSearch, selectedZone, sortColumn, sortDirection]);
+  }, [language, maximumIndemnity, minimumIndemnity, nameSearch, selectedZone, sortColumn, sortDirection]);
 
   const totalPages = Math.ceil(sortedCountries.length / pageSize);
   const visiblePage = totalPages === 0 ? 1 : Math.min(currentPage, totalPages);
@@ -386,6 +459,7 @@ function App() {
             totalPages={totalPages}
             currentPage={visiblePage}
             getFlagCode={getFlagCode}
+            getCountryDisplayName={(countryName) => getCountryDisplayName(countryName, language)}
             getZone={getZone}
             onSort={handleSort}
             onPreviousPage={() => setCurrentPage((page) => page - 1)}
@@ -402,6 +476,7 @@ function App() {
           language={language}
           translation={translation}
           getFlagCode={getFlagCode}
+          getCountryDisplayName={(countryName) => getCountryDisplayName(countryName, language)}
           onClose={() => setSelectedCountry(null)}
         />
       )}

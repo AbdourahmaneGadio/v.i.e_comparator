@@ -14,6 +14,7 @@ interface CountryTableProps {
   totalPages: number;
   currentPage: number;
   getFlagCode: (countryName: string) => string;
+  getCountryDisplayName: (countryName: string) => string;
   getZone: (countryName: string) => Zone;
   onSort: (column: SortColumn) => void;
   onPreviousPage: () => void;
@@ -55,6 +56,7 @@ function CountryTable({
   totalPages,
   currentPage,
   getFlagCode,
+  getCountryDisplayName,
   getZone,
   onSort,
   onPreviousPage,
@@ -87,7 +89,7 @@ function CountryTable({
               </td>
               <td data-testid="country-name">
                 <button className="country-link" type="button" onClick={() => onCountrySelect(country)}>
-                  {country.name}
+                  {getCountryDisplayName(country.name)}
                 </button>
               </td>
               <td>{translation.zones[getZone(country.name)]}</td>
