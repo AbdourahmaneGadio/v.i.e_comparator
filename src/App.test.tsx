@@ -14,7 +14,7 @@ const getFirstCountryName = () =>
 const getCountryNames = () =>
   screen.getAllByTestId("country-name").map((country) => country.textContent);
 
-describe("V.I.E Comparator", () => {
+describe("Integration tests: V.I.E Comparator", () => {
   it("shows ten countries per page by default", () => {
     render(<App />);
 
