@@ -106,7 +106,7 @@ describe("V.I.E Comparator", () => {
       "href",
       "https://mon-vie-via.businessfrance.fr/destinations/allemagne",
     );
-    expect(screen.getByRole("img", { name: /Conditions d'affectation en ALLEMAGNE/ })).toHaveAttribute(
+    expect(screen.getByRole("img", { name: /Conditions d'affectation en Allemagne/ })).toHaveAttribute(
       "src",
       "https://images.prismic.io/civiwebprod/aEA8-rh8WN-LVlOi_ALLEMAGNEFR.png?auto=format,compress",
     );
@@ -126,7 +126,7 @@ describe("V.I.E Comparator", () => {
 
     await user.click(screen.getByTestId("language-toggle"));
 
-    expect(screen.getByRole("img", { name: "Conditions d'affectation en BENIN" })).toHaveAttribute(
+    expect(screen.getByRole("img", { name: "Conditions d'affectation en Bénin" })).toHaveAttribute(
       "src",
       "https://images.prismic.io/civiwebprod/aEFVwrh8WN-LVokb_BENINFR.png?auto=format,compress",
     );
@@ -149,13 +149,30 @@ describe("V.I.E Comparator", () => {
     expect(screen.getByRole("button", { name: "English" })).toBeInTheDocument();
   });
 
+  it("uses sentence case and accents for French country names", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByTestId("language-toggle"));
+    await user.type(screen.getByTestId("name-filter"), "CAP-VERT");
+    expect(getCountryNames()).toContain("Cap-Vert");
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "COREE DU SUD");
+    expect(getCountryNames()).toContain("Corée du Sud");
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "BRESIL");
+    expect(getCountryNames()).toContain("Brésil (São Paulo)");
+  });
+
   it("shows localized country requirements after selecting China", async () => {
     const user = userEvent.setup();
     render(<App />);
 
     await user.click(screen.getByTestId("language-toggle"));
     await user.type(screen.getByTestId("name-filter"), "CHINE");
-    await user.click(screen.getByRole("button", { name: "CHINE (Hong-Kong)" }));
+    await user.click(screen.getByRole("button", { name: "Chine (Hong-Kong)" }));
 
     expect(screen.getByTestId("country-details")).toHaveTextContent("Conditions par pays");
     expect(screen.getByText("Critères imposés par le pays")).toBeInTheDocument();

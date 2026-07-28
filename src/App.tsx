@@ -3,7 +3,10 @@ import countriesData from "./data/countries_v.i.e_data";
 import CountryTable from "./components/CountryTable";
 import Filters from "./components/Filters";
 import CountryDetails from "./components/CountryDetails";
-import { getCountryRequirementEnglishName } from "./data/countryRequirements";
+import {
+  getCountryRequirementEnglishName,
+  getCountryRequirementFrenchName,
+} from "./data/countryRequirements";
 import { translations, type Language } from "./i18n";
 import { ZONES, type SortColumn, type SortDirection, type Zone } from "./types";
 
@@ -204,6 +207,15 @@ const getFlagCode = (countryName: string) =>
   flagCodeByCountry[getCountryKey(countryName) as keyof typeof flagCodeByCountry] ?? "";
 
 const englishCountryNames = new Intl.DisplayNames(["en"], { type: "region" });
+const frenchCountryNames = new Intl.DisplayNames(["fr"], { type: "region" });
+const frenchCountryOverrides: Record<string, string> = {
+  CAIMANS: "Îles Caïmans",
+  CONGO: "Congo",
+  "CONGO RDC": "République démocratique du Congo",
+  JERUSALEM: "Jérusalem",
+  SALOMON: "Îles Salomon",
+  TAIPEI: "Taïwan",
+};
 const englishCountryOverrides: Record<string, string> = {
   CAIMANS: "Cayman Islands",
   JERUSALEM: "Jerusalem",
@@ -249,10 +261,17 @@ const englishLocationReplacements: [RegExp, string][] = [
 ];
 
 const getCountryDisplayName = (countryName: string, language: Language) => {
-  if (language === "fr") return countryName;
-
   const countryKey = getCountryKey(countryName);
   const countryCode = getFlagCode(countryName).toUpperCase();
+  if (language === "fr") {
+    const translatedCountry = frenchCountryOverrides[countryKey]
+      ?? (countryCode === "" ? undefined : frenchCountryNames.of(countryCode))
+      ?? getCountryRequirementFrenchName(countryName)
+      ?? countryKey;
+    const suffix = countryName.slice(countryKey.length);
+    return `${translatedCountry}${suffix}`;
+  }
+
   const translatedCountry = getCountryRequirementEnglishName(countryName)
     ?? englishCountryOverrides[countryKey]
     ?? (countryCode === "" ? countryKey : englishCountryNames.of(countryCode))

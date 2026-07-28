@@ -31,6 +31,7 @@ interface RequirementsDocument {
 }
 
 export interface CountryRequirement {
+  frenchName: string;
   englishName: string;
   frenchUrl: string;
   englishUrl: string;
@@ -144,6 +145,7 @@ for (const result of document.results) {
   const englishUid = result.alternate_languages?.find((language) => language.lang === "en-us")?.uid ?? result.uid;
 
   countryRequirements.set(key, {
+    frenchName: result.data.name,
     englishName: englishName.toLocaleLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase()),
     frenchUrl: `https://mon-vie-via.businessfrance.fr/destinations/${result.uid}`,
     englishUrl: `https://mon-vie-via.businessfrance.fr/en/destinations/${englishUid}`,
@@ -160,3 +162,6 @@ export const getCountryRequirement = (countryName: string) =>
 
 export const getCountryRequirementEnglishName = (countryName: string) =>
   getCountryRequirement(countryName)?.englishName;
+
+export const getCountryRequirementFrenchName = (countryName: string) =>
+  getCountryRequirement(countryName)?.frenchName;
