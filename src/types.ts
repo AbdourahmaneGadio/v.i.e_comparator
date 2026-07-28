@@ -28,3 +28,5 @@ export type SortColumn =
   | "monthlyPay";
 
 export type SortDirection = "ascending" | "descending";
+
+export type CriteriaFilter = "all" | "yes" | "no";

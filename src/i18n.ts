@@ -28,6 +28,11 @@ export interface Translation {
   commonIndemnity: string;
   geographicIndemnity: string;
   totalIndemnity: string;
+  criteriaNeededToApply: string;
+  criteriaYes: string;
+  criteriaNo: string;
+  allCriteriaStatuses: string;
+  criteriaFilter: string;
   countryTablePages: string;
   previous: string;
   pageOf: (currentPage: number, totalPages: number) => string;
@@ -103,6 +108,11 @@ export const translations: Record<Language, Translation> = {
     commonIndemnity: "Common indemnity",
     geographicIndemnity: "Geographic indemnity",
     totalIndemnity: "Total indemnity",
+    criteriaNeededToApply: "Criterias needed to apply",
+    criteriaYes: "YES",
+    criteriaNo: "NO",
+    allCriteriaStatuses: "All countries",
+    criteriaFilter: "Application criteria",
     countryTablePages: "Country table pages",
     previous: "Previous",
     pageOf: (currentPage, totalPages) => `Page ${currentPage} of ${totalPages}`,
@@ -156,6 +166,11 @@ export const translations: Record<Language, Translation> = {
     commonIndemnity: "Indemnité commune",
     geographicIndemnity: "Indemnité géographique",
     totalIndemnity: "Indemnité totale",
+    criteriaNeededToApply: "Critères nécessaires pour candidater",
+    criteriaYes: "OUI",
+    criteriaNo: "NON",
+    allCriteriaStatuses: "Tous les pays",
+    criteriaFilter: "Critères de candidature",
     countryTablePages: "Pages du tableau des pays",
     previous: "Précédent",
     pageOf: (currentPage, totalPages) => `Page ${currentPage} sur ${totalPages}`,

@@ -1,18 +1,20 @@
 import type { ChangeEvent } from "react";
 import type { Translation } from "../i18n";
-import type { Zone } from "../types";
+import type { CriteriaFilter, Zone } from "../types";
 
 interface FiltersProps {
   nameSearch: string;
   minimumIndemnity: string;
   maximumIndemnity: string;
   selectedZone: Zone | "";
+  criteriaFilter: CriteriaFilter;
   zones: readonly Zone[];
   translation: Translation;
   onNameChange: (value: string) => void;
   onMinimumChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onMaximumChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onZoneChange: (value: Zone | "") => void;
+  onCriteriaFilterChange: (value: CriteriaFilter) => void;
   onReset: () => void;
 }
 
@@ -21,12 +23,14 @@ function Filters({
   minimumIndemnity,
   maximumIndemnity,
   selectedZone,
+  criteriaFilter,
   zones,
   translation,
   onNameChange,
   onMinimumChange,
   onMaximumChange,
   onZoneChange,
+  onCriteriaFilterChange,
   onReset,
 }: FiltersProps) {
   return (
@@ -40,6 +44,19 @@ function Filters({
           placeholder={translation.countryPlaceholder}
           onChange={(event) => onNameChange(event.target.value)}
         />
+      </label>
+
+      <label>
+        {translation.criteriaFilter}
+        <select
+          data-testid="criteria-filter"
+          value={criteriaFilter}
+          onChange={(event) => onCriteriaFilterChange(event.target.value as CriteriaFilter)}
+        >
+          <option value="all">{translation.allCriteriaStatuses}</option>
+          <option value="yes">{translation.criteriaYes}</option>
+          <option value="no">{translation.criteriaNo}</option>
+        </select>
       </label>
 
       <label>

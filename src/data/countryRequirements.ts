@@ -135,6 +135,34 @@ const getRequirementImage = (result: RequirementResult) => {
 };
 
 export const countryRequirements = new Map<string, CountryRequirement>();
+const countriesWithCriteria = new Set([
+  "AUSTRALIE",
+  "BENIN",
+  "CAMEROUN",
+  "CANADA",
+  "CHINE",
+  "COLOMBIE",
+  "CONGO",
+  "COTE D IVOIRE",
+  "GABON",
+  "GHANA",
+  "INDE",
+  "INDONESIE",
+  "JAPON",
+  "KENYA",
+  "MADAGASCAR",
+  "MALAISIE",
+  "MAURICE",
+  "MAROC",
+  "NOUVELLE-ZELANDE",
+  "QATAR",
+  "COREE DU SUD",
+  "SUISSE",
+  "THAILANDE",
+  "TURQUIE",
+  "ROYAUME-UNI",
+  "ETATS-UNIS",
+]);
 
 for (const result of document.results) {
   const country = getCountryData(result);
@@ -165,3 +193,8 @@ export const getCountryRequirementEnglishName = (countryName: string) =>
 
 export const getCountryRequirementFrenchName = (countryName: string) =>
   getCountryRequirement(countryName)?.frenchName;
+
+export const hasCountryRequirements = (countryName: string) => {
+  const requirement = getCountryRequirement(countryName);
+  return requirement !== undefined && countriesWithCriteria.has(getRequirementKey(countryName));
+};

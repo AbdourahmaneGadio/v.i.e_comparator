@@ -22,6 +22,39 @@ describe("V.I.E Comparator", () => {
     expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 of 24");
   });
 
+  it("marks countries with JSON-backed application criteria", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.type(screen.getByTestId("name-filter"), "Benin");
+    expect(within(screen.getByTestId("country-table")).getByText("YES")).toHaveClass("criteria-yes");
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "Afghanistan");
+    expect(within(screen.getByTestId("country-table")).getByText("NO")).toHaveClass("criteria-no");
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "Argentina");
+    expect(within(screen.getByTestId("country-table")).getByText("NO")).toHaveClass("criteria-no");
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "Austria");
+    expect(within(screen.getByTestId("country-table")).getByText("NO")).toHaveClass("criteria-no");
+  });
+
+  it("filters countries by application criteria status", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByTestId("criteria-filter"), "yes");
+    expect(getCountryNames()).toContain("Benin");
+    expect(getCountryNames()).not.toContain("Afghanistan");
+
+    await user.selectOptions(screen.getByTestId("criteria-filter"), "no");
+    expect(getCountryNames()).toContain("Afghanistan");
+    expect(getCountryNames()).not.toContain("Benin");
+  });
+
   it("filters countries by name and zone", async () => {
     const user = userEvent.setup();
     render(<App />);

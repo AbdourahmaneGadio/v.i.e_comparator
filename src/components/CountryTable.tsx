@@ -15,6 +15,7 @@ interface CountryTableProps {
   currentPage: number;
   getFlagCode: (countryName: string) => string;
   getCountryDisplayName: (countryName: string) => string;
+  hasCountryRequirements: (countryName: string) => boolean;
   getZone: (countryName: string) => Zone;
   onSort: (column: SortColumn) => void;
   onPreviousPage: () => void;
@@ -57,6 +58,7 @@ function CountryTable({
   currentPage,
   getFlagCode,
   getCountryDisplayName,
+  hasCountryRequirements,
   getZone,
   onSort,
   onPreviousPage,
@@ -75,6 +77,7 @@ function CountryTable({
             <SortableHeader label={translation.commonIndemnity} column="commonIndemnity" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
             <SortableHeader label={translation.geographicIndemnity} column="geographicIndemnity" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
             <SortableHeader label={translation.totalIndemnity} column="monthlyPay" activeColumn={sortColumn} direction={sortDirection} onSort={onSort} />
+            <th scope="col">{translation.criteriaNeededToApply}</th>
           </tr>
         </thead>
         <tbody>
@@ -96,6 +99,9 @@ function CountryTable({
               <td>{currencyFormatter.format(country.commonIndemnity)}</td>
               <td>{currencyFormatter.format(country.geographicIndemnity)}</td>
               <td className="total-cell">{currencyFormatter.format(country.monthlyPay)}</td>
+              <td className={hasCountryRequirements(country.name) ? "criteria-yes" : "criteria-no"}>
+                {hasCountryRequirements(country.name) ? translation.criteriaYes : translation.criteriaNo}
+              </td>
             </tr>
           ))}
         </tbody>
