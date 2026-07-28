@@ -4,11 +4,11 @@ export type Language = "en" | "fr";
 
 export interface Translation {
   languageName: string;
-  switchLanguage: string;
   darkTheme: string;
   oledTheme: string;
   lightTheme: string;
   themeSelection: string;
+  languageSelection: string;
   eyebrow: string;
   title: string;
   intro: string;
@@ -88,11 +88,11 @@ const frenchZones: Record<Zone, string> = {
 export const translations: Record<Language, Translation> = {
   en: {
     languageName: "English",
-    switchLanguage: "Français",
     darkTheme: "Dark theme",
     oledTheme: "OLED mode",
     lightTheme: "Light theme",
     themeSelection: "Theme",
+    languageSelection: "Language",
     eyebrow: "International mobility",
     title: "V.I.E Comparator",
     intro: "Compare V.I.E. indemnities across countries.",
@@ -150,11 +150,11 @@ export const translations: Record<Language, Translation> = {
   },
   fr: {
     languageName: "Français",
-    switchLanguage: "English",
     darkTheme: "Thème sombre",
     oledTheme: "Mode OLED",
     lightTheme: "Thème clair",
     themeSelection: "Thème",
+    languageSelection: "Langue",
     eyebrow: "Mobilité internationale",
     title: "Comparateur V.I.E.",
     intro: "Comparez les indemnités V.I.E. entre les pays.",

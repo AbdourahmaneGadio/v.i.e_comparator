@@ -14,6 +14,7 @@ const pageSize = 10;
 
 function App() {
   const [language, setLanguage] = useState<Language>("en");
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [nameSearch, setNameSearch] = useState("");
   const [minimumIndemnity, setMinimumIndemnity] = useState("");
@@ -116,21 +117,53 @@ function App() {
               <option value="dark">☾ {translation.darkTheme}</option>
               <option value="oled">◐ {translation.oledTheme}</option>
             </select>
-            <button
-              data-testid="language-toggle"
-              type="button"
-              className="language-toggle"
-              aria-label={translation.switchLanguage}
-              onClick={() => setLanguage(language === "en" ? "fr" : "en")}
-            >
-              <img
-                className="language-flag"
-                src={`${import.meta.env.BASE_URL}flags/${language === "en" ? "fr" : "gb"}.svg`}
-                alt=""
-                aria-hidden="true"
-              />
-              {translation.switchLanguage}
-            </button>
+            <div className="language-selector-wrapper">
+              <button
+                data-testid="language-selector"
+                className="language-selector"
+                type="button"
+                aria-label={translation.languageSelection}
+                aria-haspopup="listbox"
+                aria-expanded={isLanguageMenuOpen}
+                onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)}
+              >
+                <img
+                  data-testid="language-flag"
+                  className="language-flag"
+                  src={`${import.meta.env.BASE_URL}flags/${language === "en" ? "gb" : "fr"}.svg`}
+                  alt=""
+                  aria-hidden="true"
+                />
+                <span>{language === "en" ? "English" : "Français"}</span>
+                <span aria-hidden="true">▾</span>
+              </button>
+              {isLanguageMenuOpen && (
+                <div className="language-options" role="listbox" aria-label={translation.languageSelection}>
+                  {(["en", "fr"] as const).map((option) => (
+                    <button
+                      key={option}
+                      data-testid={`language-option-${option}`}
+                      className="language-option"
+                      type="button"
+                      role="option"
+                      aria-selected={language === option}
+                      onClick={() => {
+                        setLanguage(option);
+                        setIsLanguageMenuOpen(false);
+                      }}
+                    >
+                      <img
+                        className="language-flag"
+                        src={`${import.meta.env.BASE_URL}flags/${option === "en" ? "gb" : "fr"}.svg`}
+                        alt=""
+                        aria-hidden="true"
+                      />
+                      <span>{option === "en" ? "English" : "Français"}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <p className="intro">{translation.intro}</p>

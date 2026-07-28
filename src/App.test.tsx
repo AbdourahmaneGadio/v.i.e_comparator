@@ -14,6 +14,11 @@ const getFirstCountryName = () =>
 const getCountryNames = () =>
   screen.getAllByTestId("country-name").map((country) => country.textContent);
 
+const selectLanguage = async (user: ReturnType<typeof userEvent.setup>, language: "en" | "fr") => {
+  await user.click(screen.getByTestId("language-selector"));
+  await user.click(screen.getByTestId(`language-option-${language}`));
+};
+
 describe("Integration tests: V.I.E Comparator", () => {
   it("shows ten countries per page by default", () => {
     render(<App />);
@@ -153,7 +158,7 @@ describe("Integration tests: V.I.E Comparator", () => {
       "https://mon-vie-via.businessfrance.fr/en/destinations/germany",
     );
 
-    await user.click(screen.getByTestId("language-toggle"));
+    await selectLanguage(user, "fr");
 
     expect(screen.getByRole("link", { name: /Voir la page officielle/ })).toHaveAttribute(
       "href",
@@ -177,7 +182,7 @@ describe("Integration tests: V.I.E Comparator", () => {
       "https://images.prismic.io/civiwebprod/aEFWkbh8WN-LVokx_BENINEN.png?auto=format,compress",
     );
 
-    await user.click(screen.getByTestId("language-toggle"));
+    await selectLanguage(user, "fr");
 
     expect(screen.getByRole("img", { name: "Conditions d'affectation en Bénin" })).toHaveAttribute(
       "src",
@@ -189,8 +194,12 @@ describe("Integration tests: V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    expect(within(screen.getByTestId("language-toggle")).getByRole("presentation", { hidden: true })).toHaveAttribute("src", "/flags/fr.svg");
-    await user.click(screen.getByTestId("language-toggle"));
+    expect(screen.getByTestId("language-selector")).toHaveTextContent("English");
+    expect(screen.getByTestId("language-flag")).toHaveAttribute("src", "/flags/gb.svg");
+    await user.click(screen.getByTestId("language-selector"));
+    expect(screen.getByTestId("language-option-en")).toHaveAttribute("aria-selected", "true");
+    expect(within(screen.getByTestId("language-option-fr")).getByRole("presentation", { hidden: true })).toHaveAttribute("src", "/flags/fr.svg");
+    await user.click(screen.getByTestId("language-option-fr"));
 
     expect(screen.getByRole("heading", { name: "Comparateur V.I.E." })).toBeInTheDocument();
     expect(screen.getByLabelText("Nom du pays")).toBeInTheDocument();
@@ -200,8 +209,9 @@ describe("Integration tests: V.I.E Comparator", () => {
       "href",
       "https://mon-vie-via.businessfrance.fr",
     );
-    expect(screen.getByRole("button", { name: "English" })).toBeInTheDocument();
-    expect(within(screen.getByTestId("language-toggle")).getByRole("presentation", { hidden: true })).toHaveAttribute("src", "/flags/gb.svg");
+    expect(screen.getByTestId("language-selector")).toHaveTextContent("Français");
+    expect(screen.getByTestId("language-selector")).toHaveAccessibleName("Langue");
+    expect(screen.getByTestId("language-flag")).toHaveAttribute("src", "/flags/fr.svg");
   });
 
   it("toggles the dark theme accessibly", async () => {
@@ -227,7 +237,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByTestId("language-toggle"));
+    await selectLanguage(user, "fr");
     await user.type(screen.getByTestId("name-filter"), "CAP-VERT");
     expect(getCountryNames()).toContain("Cap-Vert");
 
@@ -244,7 +254,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByTestId("language-toggle"));
+    await selectLanguage(user, "fr");
     await user.type(screen.getByTestId("name-filter"), "CHINE");
     await user.click(screen.getByRole("button", { name: "Chine (Hong-Kong)" }));
 
@@ -264,7 +274,7 @@ describe("Integration tests: V.I.E Comparator", () => {
       "https://images.prismic.io/civiwebprod/aEKgyrh8WN-LVuKP_CHINEFR.png?auto=format,compress",
     );
 
-    await user.click(screen.getByTestId("language-toggle"));
+    await selectLanguage(user, "en");
 
     expect(screen.getByText("Criteria imposed by country")).toBeInTheDocument();
     expect(screen.getByText("I am a national of the European Economic Area, including a French national.")).toBeInTheDocument();
@@ -290,7 +300,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByTestId("language-toggle"));
+    await selectLanguage(user, "fr");
     await user.type(screen.getByTestId("name-filter"), "INDE");
     await user.click(screen.getByRole("button", { name: "Inde (Bangalore)" }));
 
