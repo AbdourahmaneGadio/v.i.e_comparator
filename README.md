@@ -12,17 +12,39 @@ A React and TypeScript application for comparing V.I.E. indemnities across count
 
 Live demo: [V.I.E Comparator on GitHub Pages](https://AbdourahmaneGadio.github.io/v.i.e_comparator/)
 
-![V.I.E Comparator screenshot](docs/screenshot.png)
+<video controls width="720" src="docs/site-demo.mp4"></video>
+
+Short walkthrough of the comparison table, filters, and country requirements panel.
+
+## Screenshots
+
+### Country comparison table
+
+The main table compares indemnities by country, displays flags and application-criteria status, and provides pagination.
+
+![Country comparison table](docs/screenshot-table.png)
+
+### Multi-zone and criteria filters
+
+The filters support selecting several zones at once and showing only countries with specific application criteria.
+
+![Multi-zone and criteria filters](docs/screenshot-filters.png)
+
+### Localized country requirements
+
+Selecting a country opens its localized requirements, eligibility information, official destination link, and assignment image.
+
+![Localized country requirements](docs/screenshot-requirements.png)
 
 ## Features
 
 - Search countries by name
 - Filter by minimum and maximum total indemnity
-- Filter by geographic zone
-- Display country flags
-- Switch between English and French
-- Sort the table by clicking a column header
-- Browse results with pagination (10 countries per page)
+- Filter by one or more geographic zones with the checkbox dropdown
+- Filter countries by whether application criteria are required
+- Display application-criteria status directly in the table
+
+And more...
 
 ## Repository structure
 
@@ -43,6 +65,9 @@ Live demo: [V.I.E Comparator on GitHub Pages](https://AbdourahmaneGadio.github.i
 │   │   ├── Filters.tsx
 │   │   └── Pagination.tsx
 │   ├── data/countries_v.i.e_data.tsx
+│   ├── data/countries_requirements.json
+│   ├── data/countryRequirements.ts
+│   ├── data/countryRequirements.test.ts
 │   ├── i18n.ts
 │   ├── App.test.tsx
 │   ├── App.tsx
@@ -60,7 +85,7 @@ Live demo: [V.I.E Comparator on GitHub Pages](https://AbdourahmaneGadio.github.i
 
 Requirements:
 
-- Node.js 20 or newer
+- Node.js 24 or newer
 - npm
 
 Install dependencies:
@@ -80,14 +105,14 @@ The application is then available at the local URL shown by Vite.
 ## Available scripts
 
 ```bash
-npm run build  # Type-check and create a production build
-npm run lint   # Run ESLint
+npm run build   # Type-check and create a production build
+npm run lint    # Run ESLint
 npm run preview # Preview the production build
-npm test        # Run the test suite once
+npm test        # Run unit and integration tests once
 npm run test:watch # Run tests in watch mode
 npm run test:e2e # Run browser-based end-to-end tests
 npm run test:e2e:ui # Open Playwright’s interactive test UI
-npm run precommit # Run the checks enforced before commits
+npm run precommit # Run lint and unit/integration tests
 ```
 
 ## Data
@@ -96,19 +121,21 @@ Country indemnity data is stored in [`src/data/countries_v.i.e_data.tsx`](src/da
 
 The application uses the indemnity data for 2025. The source is the official [V.I.E./V.I.A. Business France website](https://mon-vie-via.businessfrance.fr).
 
+Country-specific requirements and localized destination metadata are stored in [`src/data/countries_requirements.json`](src/data/countries_requirements.json) and exposed through [`src/data/countryRequirements.ts`](src/data/countryRequirements.ts). The country details panel uses the French or English destination image when available.
+
 Country flags are provided by [`svg-country-flags`](https://github.com/hjnilsson/country-flags) and bundled in `public/flags`.
 
 ## Testing
 
-Tests use Vitest with React Testing Library and cover the default pagination, name and zone filters, column sorting, and page navigation.
+Unit tests cover the local country-requirements classifier and localized metadata. Integration tests use Vitest with React Testing Library and cover pagination, name and multi-zone filters, application-criteria filters, sorting, language switching, country details, and localized images.
 
-End-to-end tests use Playwright and run against a local Vite development server. Install the browser once with:
+End-to-end tests use Playwright and run against a local Vite development server. They include a smoke test plus filtering, sorting, and pagination scenarios. Install the browser once with:
 
 ```bash
 npx playwright install chromium
 ```
 
-Husky runs the lint and unit-test checks automatically before each commit. The same `npm run precommit` command is executed by the CI pipeline.
+Husky runs lint and unit/integration tests automatically before each commit. CI runs those checks explicitly, then builds the application and runs the Playwright E2E suite.
 
 ## Docker
 
@@ -128,7 +155,7 @@ The GitHub Actions workflow runs tests, linting, and the production build for pu
 
 ## Automation
 
-- GitHub Actions runs the pre-commit checks and E2E tests on every workflow run. The production and Docker builds run when application, test, or packaging files change.
+- GitHub Actions runs lint, unit/integration tests, the production build, and E2E tests on every relevant workflow run. The Docker build runs when application, test, or packaging files change.
 - Pushes to `main` deploy the application to [GitHub Pages](https://AbdourahmaneGadio.github.io/v.i.e_comparator/).
 - Push a version tag such as `v1.0.0` to create a GitHub release with generated release notes.
 - Gitleaks scans commits and pull requests for accidentally committed secrets. Its current status is shown by the Gitleaks badge above.
