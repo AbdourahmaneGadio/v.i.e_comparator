@@ -2,6 +2,7 @@ import { useMemo, useState, type ChangeEvent } from "react";
 import countriesData from "./data/countries_v.i.e_data";
 import CountryTable from "./components/CountryTable";
 import Filters from "./components/Filters";
+import CountryDetails from "./components/CountryDetails";
 import { translations, type Language } from "./i18n";
 import { ZONES, type SortColumn, type SortDirection, type Zone } from "./types";
 
@@ -262,6 +263,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortColumn>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("ascending");
+  const [selectedCountry, setSelectedCountry] = useState<(typeof countriesData)[number] | null>(null);
   const translation = translations[language];
 
   const sortedCountries = useMemo(() => {
@@ -389,9 +391,20 @@ function App() {
             onPreviousPage={() => setCurrentPage((page) => page - 1)}
             onNextPage={() => setCurrentPage((page) => page + 1)}
             translation={translation}
+            onCountrySelect={setSelectedCountry}
           />
         )}
       </section>
+
+      {selectedCountry && (
+        <CountryDetails
+          country={selectedCountry}
+          language={language}
+          translation={translation}
+          getFlagCode={getFlagCode}
+          onClose={() => setSelectedCountry(null)}
+        />
+      )}
 
       <footer className="app-footer">
         <span>{translation.dataSource}:</span>

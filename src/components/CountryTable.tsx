@@ -19,6 +19,7 @@ interface CountryTableProps {
   onPreviousPage: () => void;
   onNextPage: () => void;
   translation: Translation;
+  onCountrySelect: (country: Country) => void;
 }
 
 interface SortableHeaderProps {
@@ -59,6 +60,7 @@ function CountryTable({
   onPreviousPage,
   onNextPage,
   translation,
+  onCountrySelect,
 }: CountryTableProps) {
   return (
     <div className="table-wrapper">
@@ -83,7 +85,11 @@ function CountryTable({
                   alt={translation.flagAlt(country.name)}
                 />
               </td>
-              <td data-testid="country-name">{country.name}</td>
+              <td data-testid="country-name">
+                <button className="country-link" type="button" onClick={() => onCountrySelect(country)}>
+                  {country.name}
+                </button>
+              </td>
               <td>{translation.zones[getZone(country.name)]}</td>
               <td>{currencyFormatter.format(country.commonIndemnity)}</td>
               <td>{currencyFormatter.format(country.geographicIndemnity)}</td>
