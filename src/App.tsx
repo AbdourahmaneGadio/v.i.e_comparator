@@ -13,6 +13,7 @@ import { ZONES, type CriteriaFilter, type SelectedZones, type SortColumn, type S
 const pageSize = 10;
 
 function App() {
+  const currentYear = new Date().getFullYear();
   const [language, setLanguage] = useState<Language>("en");
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>("light");
@@ -246,6 +247,7 @@ function App() {
           Business France
         </a>
         <span>· {translation.dataYear}</span>
+        <span>· © Abdourahmane Gadio - {currentYear}</span>
       </footer>
     </main>
   );
