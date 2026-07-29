@@ -38,9 +38,11 @@ export interface Translation {
   allCriteriaStatuses: string;
   criteriaFilter: string;
   countryTablePages: string;
+  first: string;
   previous: string;
   pageOf: (currentPage: number, totalPages: number) => string;
   next: string;
+  last: string;
   dataSource: string;
   dataYear: string;
   countryDetails: string;
@@ -122,9 +124,11 @@ export const translations: Record<Language, Translation> = {
     allCriteriaStatuses: "All countries",
     criteriaFilter: "Application criteria",
     countryTablePages: "Country table pages",
+    first: "First",
     previous: "Previous",
     pageOf: (currentPage, totalPages) => `Page ${currentPage} of ${totalPages}`,
     next: "Next",
+    last: "Last",
     dataSource: "Data source",
     dataYear: "2025 data",
     countryDetails: "Country requirements",
@@ -184,9 +188,11 @@ export const translations: Record<Language, Translation> = {
     allCriteriaStatuses: "Tous les pays",
     criteriaFilter: "Critères de candidature",
     countryTablePages: "Pages du tableau des pays",
+    first: "Première",
     previous: "Précédent",
     pageOf: (currentPage, totalPages) => `Page ${currentPage} sur ${totalPages}`,
     next: "Suivant",
+    last: "Dernière",
     dataSource: "Source des données",
     dataYear: "Données 2025",
     countryDetails: "Conditions par pays",

@@ -218,8 +218,10 @@ function App() {
             hasCountryRequirements={hasCountryRequirements}
             getZone={getZone}
             onSort={handleSort}
+            onFirstPage={() => setCurrentPage(1)}
             onPreviousPage={() => setCurrentPage((page) => page - 1)}
             onNextPage={() => setCurrentPage((page) => page + 1)}
+            onLastPage={() => setCurrentPage(totalPages)}
             translation={translation}
             onCountrySelect={setSelectedCountry}
           />

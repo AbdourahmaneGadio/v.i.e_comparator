@@ -121,6 +121,17 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(getFirstCountryName()).toBe("Australia (Sydney)");
   });
 
+  it("jumps to the first and last pages", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByTestId("last-page"));
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 24 of 24");
+
+    await user.click(screen.getByTestId("first-page"));
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 of 24");
+  });
+
   it("translates country names and regional variants in English", async () => {
     const user = userEvent.setup();
     render(<App />);

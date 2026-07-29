@@ -18,8 +18,10 @@ interface CountryTableProps {
   hasCountryRequirements: (countryName: string) => boolean;
   getZone: (countryName: string) => Zone;
   onSort: (column: SortColumn) => void;
+  onFirstPage: () => void;
   onPreviousPage: () => void;
   onNextPage: () => void;
+  onLastPage: () => void;
   translation: Translation;
   onCountrySelect: (country: Country) => void;
 }
@@ -61,8 +63,10 @@ function CountryTable({
   hasCountryRequirements,
   getZone,
   onSort,
+  onFirstPage,
   onPreviousPage,
   onNextPage,
+  onLastPage,
   translation,
   onCountrySelect,
 }: CountryTableProps) {
@@ -109,8 +113,10 @@ function CountryTable({
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
+        onFirst={onFirstPage}
         onPrevious={onPreviousPage}
         onNext={onNextPage}
+        onLast={onLastPage}
         translation={translation}
       />
     </div>
