@@ -32,3 +32,5 @@ export type SortDirection = "ascending" | "descending";
 
 export type CriteriaFilter = "all" | "yes" | "no";
 export type Theme = "light" | "dark" | "oled";
+export type DiplomaFilter = "all" | "bac" | "bac_2" | "bac_3" | "bac_4" | "bac_5";
+export type CandidateNationality = "all" | "french" | "european" | "other";

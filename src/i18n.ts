@@ -13,6 +13,7 @@ export interface Translation {
   title: string;
   intro: string;
   countryFilters: string;
+  candidateProfileFilters: string;
   countryName: string;
   countryPlaceholder: string;
   zone: string;
@@ -61,6 +62,24 @@ export interface Translation {
   countryDetailsUnavailable: string;
   countryImageAlt: (country: string) => string;
   zones: Record<Zone, string>;
+  allDiplomaStatuses: string;
+  bacPlusUn: string;
+  bacPlusDeux: string;
+  bacPlusTrois: string;
+  bacPlusQuatre: string;
+  bacPlusCinq: string;
+  diplomaFilter: string;
+  candidateAge: string;
+  candidateAgePlaceholder: string;
+  candidateDiplomaYear: string;
+  candidateDiplomaYearPlaceholder: string;
+  candidateNationality: string;
+  allNationalities: string;
+  frenchNationality: string;
+  europeanNationality: string;
+  otherNationality: string;
+  candidateExperienceYears: string;
+  candidateExperienceYearsPlaceholder: string;
 }
 
 const englishZones: Record<Zone, string> = {
@@ -99,6 +118,7 @@ export const translations: Record<Language, Translation> = {
     title: "V.I.E Comparator",
     intro: "Compare V.I.E. indemnities across countries.",
     countryFilters: "Country filters",
+    candidateProfileFilters: "Candidate profile filters",
     countryName: "Country name",
     countryPlaceholder: "e.g. Germany",
     zone: "Zone",
@@ -151,6 +171,24 @@ export const translations: Record<Language, Translation> = {
     ],
     countryImageAlt: (country) => `${country} assignment conditions`,
     zones: englishZones,
+    diplomaFilter: "Last diploma obtained",
+    candidateAge: "Candidate age",
+    candidateAgePlaceholder: "e.g. 28",
+    candidateDiplomaYear: "Year of diploma obtained",
+    candidateDiplomaYearPlaceholder: "e.g. 2022",
+    candidateNationality: "Nationality",
+    allNationalities: "All nationalities",
+    frenchNationality: "French",
+    europeanNationality: "European",
+    otherNationality: "Other",
+    candidateExperienceYears: "Years of professional experience",
+    candidateExperienceYearsPlaceholder: "e.g. 3",
+    allDiplomaStatuses: "All",
+    bacPlusUn: "Baccalaureate-level qualification",
+    bacPlusDeux: "Two-year higher education qualification",
+    bacPlusTrois: "Three-year higher education qualification",
+    bacPlusQuatre: "Four-year higher education qualification",
+    bacPlusCinq: "Master's degree",
   },
   fr: {
     languageName: "Français",
@@ -163,6 +201,7 @@ export const translations: Record<Language, Translation> = {
     title: "Comparateur V.I.E.",
     intro: "Comparez les indemnités V.I.E. entre les pays.",
     countryFilters: "Filtres par pays",
+    candidateProfileFilters: "Filtres du profil candidat",
     countryName: "Nom du pays",
     countryPlaceholder: "ex. Allemagne",
     zone: "Zone",
@@ -215,5 +254,23 @@ export const translations: Record<Language, Translation> = {
     ],
     countryImageAlt: (country) => `Conditions d'affectation en ${country}`,
     zones: frenchZones,
+    diplomaFilter: "Dernier diplôme obtenu",
+    candidateAge: "Âge du candidat",
+    candidateAgePlaceholder: "ex. 28",
+    candidateDiplomaYear: "Année d’obtention du diplôme",
+    candidateDiplomaYearPlaceholder: "ex. 2022",
+    candidateNationality: "Nationalité",
+    allNationalities: "Toutes les nationalités",
+    frenchNationality: "Française",
+    europeanNationality: "Européenne",
+    otherNationality: "Autre",
+    candidateExperienceYears: "Années d’expérience professionnelle",
+    candidateExperienceYearsPlaceholder: "ex. 3",
+    allDiplomaStatuses: "Tous",
+    bacPlusUn: "Bac+1",
+    bacPlusDeux: "Bac+2",
+    bacPlusTrois: "Bac+3",
+    bacPlusQuatre: "Bac+4",
+    bacPlusCinq: "Bac+5",
   },
 };

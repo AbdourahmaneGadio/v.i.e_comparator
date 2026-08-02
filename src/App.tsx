@@ -8,7 +8,12 @@ import {
 } from "./data/countryRequirements";
 import { getCountryDisplayName, getFlagCode, getZone } from "./data/countryMetadata";
 import { translations, type Language } from "./i18n";
-import { ZONES, type CriteriaFilter, type SelectedZones, type SortColumn, type SortDirection, type Theme } from "./types";
+import {
+  ZONES, type CriteriaFilter, type SelectedZones, type SortColumn, type SortDirection, type Theme,
+  type DiplomaFilter, type CandidateNationality
+} from "./types";
+import { matchesCountryEligibility } from "./data/countryEligibility";
+import FiltersRequirements from "./components/FiltersRequirements.tsx";
 
 const pageSize = 10;
 
@@ -22,6 +27,11 @@ function App() {
   const [maximumIndemnity, setMaximumIndemnity] = useState("");
   const [selectedZones, setSelectedZones] = useState<SelectedZones>([]);
   const [criteriaFilter, setCriteriaFilter] = useState<CriteriaFilter>("all");
+  const [diplomaFilter, setDiplomaFilter] = useState<DiplomaFilter>("all");
+  const [candidateAge, setCandidateAge] = useState("");
+  const [candidateDiplomaYear, setCandidateDiplomaYear] = useState("");
+  const [candidateNationality, setCandidateNationality] = useState<CandidateNationality>("all");
+  const [candidateExperienceYears, setCandidateExperienceYears] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortColumn>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("ascending");
@@ -32,6 +42,9 @@ function App() {
     const normalizedName = nameSearch.trim().toLocaleLowerCase();
     const minimum = minimumIndemnity === "" ? null : Number(minimumIndemnity);
     const maximum = maximumIndemnity === "" ? null : Number(maximumIndemnity);
+    const profileAge = candidateAge === "" ? null : Number(candidateAge);
+    const profileDiplomaYear = candidateDiplomaYear === "" ? null : Number(candidateDiplomaYear);
+    const profileExperienceYears = candidateExperienceYears === "" ? null : Number(candidateExperienceYears);
 
     const filteredCountries = countriesData.filter((country) => {
       const displayName = getCountryDisplayName(country.name, language);
@@ -43,8 +56,21 @@ function App() {
       const matchesCriteria = criteriaFilter === "all"
         || (criteriaFilter === "yes" && hasCountryRequirements(country.name))
         || (criteriaFilter === "no" && !hasCountryRequirements(country.name));
+      const matchesCandidateProfile = matchesCountryEligibility(country.name, {
+        nationality: candidateNationality,
+        diplomaLevel: diplomaFilter,
+        age: profileAge,
+        diplomaYear: profileDiplomaYear,
+        experienceYears: profileExperienceYears,
+        currentYear,
+      });
 
-      return matchesName && matchesMinimum && matchesMaximum && matchesZone && matchesCriteria;
+      return matchesName
+        && matchesMinimum
+        && matchesMaximum
+        && matchesZone
+        && matchesCriteria
+        && matchesCandidateProfile;
     });
 
     return [...filteredCountries].sort((firstCountry, secondCountry) => {
@@ -60,7 +86,22 @@ function App() {
 
       return sortDirection === "ascending" ? comparison : -comparison;
     });
-  }, [criteriaFilter, language, maximumIndemnity, minimumIndemnity, nameSearch, selectedZones, sortColumn, sortDirection]);
+  }, [
+    candidateAge,
+    candidateDiplomaYear,
+    candidateExperienceYears,
+    candidateNationality,
+    criteriaFilter,
+    diplomaFilter,
+    language,
+    maximumIndemnity,
+    minimumIndemnity,
+    nameSearch,
+    selectedZones,
+    sortColumn,
+    sortDirection,
+    currentYear,
+  ]);
 
   const totalPages = Math.ceil(sortedCountries.length / pageSize);
   const visiblePage = totalPages === 0 ? 1 : Math.min(currentPage, totalPages);
@@ -95,6 +136,11 @@ function App() {
     setMaximumIndemnity("");
     setSelectedZones([]);
     setCriteriaFilter("all");
+    setDiplomaFilter("all");
+    setCandidateAge("");
+    setCandidateDiplomaYear("");
+    setCandidateNationality("all");
+    setCandidateExperienceYears("");
     setCurrentPage(1);
   };
 
@@ -190,6 +236,36 @@ function App() {
         }}
         onCriteriaFilterChange={(value) => {
           setCriteriaFilter(value);
+          setCurrentPage(1);
+        }}
+        onReset={resetFilters}
+      />
+
+      <FiltersRequirements
+        diplomaFilter={diplomaFilter}
+        candidateAge={candidateAge}
+        candidateDiplomaYear={candidateDiplomaYear}
+        candidateNationality={candidateNationality}
+        candidateExperienceYears={candidateExperienceYears}
+        translation={translation}
+        onDiplomaFilterChange={(value) => {
+          setDiplomaFilter(value);
+          setCurrentPage(1);
+        }}
+        onCandidateAgeChange={(value) => {
+          setCandidateAge(value);
+          setCurrentPage(1);
+        }}
+        onCandidateDiplomaYearChange={(value) => {
+          setCandidateDiplomaYear(value);
+          setCurrentPage(1);
+        }}
+        onCandidateNationalityChange={(value) => {
+          setCandidateNationality(value);
+          setCurrentPage(1);
+        }}
+        onCandidateExperienceYearsChange={(value) => {
+          setCandidateExperienceYears(value);
           setCurrentPage(1);
         }}
         onReset={resetFilters}

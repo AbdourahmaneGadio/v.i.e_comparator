@@ -225,6 +225,66 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(screen.getByTestId("language-flag")).toHaveAttribute("src", "/flags/fr.svg");
   });
 
+  it("shows the candidate profile filter row", () => {
+    render(<App />);
+
+    expect(screen.getByLabelText("Candidate profile filters")).toBeInTheDocument();
+    expect(screen.getByLabelText("Candidate age")).toBeInTheDocument();
+    expect(screen.getByLabelText("Year of diploma obtained")).toBeInTheDocument();
+    expect(screen.getByLabelText("Nationality")).toBeInTheDocument();
+    expect(screen.getByLabelText("Years of professional experience")).toBeInTheDocument();
+  });
+
+  it("resets candidate profile filters", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.type(screen.getByTestId("candidate-age-filter"), "28");
+    await user.type(screen.getByTestId("candidate-diploma-year-filter"), "2022");
+    await user.selectOptions(screen.getByTestId("candidate-nationality-filter"), "european");
+    await user.type(screen.getByTestId("candidate-experience-years-filter"), "3");
+
+    await user.click(screen.getAllByRole("button", { name: "Reset" })[1]);
+
+    expect((screen.getByTestId("candidate-age-filter") as HTMLInputElement).value).toBe("");
+    expect((screen.getByTestId("candidate-diploma-year-filter") as HTMLInputElement).value).toBe("");
+    expect(screen.getByTestId("candidate-nationality-filter")).toHaveValue("all");
+    expect((screen.getByTestId("candidate-experience-years-filter") as HTMLInputElement).value).toBe("");
+  });
+
+  it("filters countries by the new candidate profile criteria", async () => {
+    const user = userEvent.setup();
+    const currentYear = new Date().getFullYear();
+    render(<App />);
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "Australia");
+    await user.selectOptions(screen.getByTestId("candidate-nationality-filter"), "french");
+    expect(getCountryNames().some((name) => name?.startsWith("Australia"))).toBe(true);
+    expect(getCountryNames().some((name) => name?.startsWith("Switzerland"))).toBe(false);
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "India");
+    await user.selectOptions(screen.getByTestId("candidate-nationality-filter"), "european");
+    await user.selectOptions(screen.getByTestId("diploma-filter"), "bac_2");
+    await user.clear(screen.getByTestId("candidate-diploma-year-filter"));
+    await user.type(screen.getByTestId("candidate-diploma-year-filter"), String(currentYear - 2));
+    expect(getCountryNames().some((name) => name?.startsWith("India"))).toBe(false);
+
+    await user.selectOptions(screen.getByTestId("diploma-filter"), "bac_3");
+    expect(getCountryNames().some((name) => name?.startsWith("India"))).toBe(true);
+
+    await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "Thailand");
+    await user.clear(screen.getByTestId("candidate-age-filter"));
+    await user.type(screen.getByTestId("candidate-age-filter"), "21");
+    expect(screen.getByText("No countries match these filters.")).toBeInTheDocument();
+
+    await user.clear(screen.getByTestId("candidate-age-filter"));
+    await user.type(screen.getByTestId("candidate-age-filter"), "22");
+    expect(getCountryNames().some((name) => name?.startsWith("Thailand"))).toBe(true);
+  });
+
   it("toggles the dark theme accessibly", async () => {
     const user = userEvent.setup();
     render(<App />);
