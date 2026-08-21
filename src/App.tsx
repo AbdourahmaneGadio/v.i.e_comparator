@@ -13,7 +13,9 @@ import {
   type DiplomaFilter, type CandidateNationality
 } from "./types";
 import { matchesCountryEligibility } from "./data/countryEligibility";
+/*
 import FiltersRequirements from "./components/FiltersRequirements.tsx";
+*/
 
 const pageSize = 10;
 
@@ -241,7 +243,7 @@ function App() {
         onReset={resetFilters}
       />
 
-      <FiltersRequirements
+      {/*<FiltersRequirements
         diplomaFilter={diplomaFilter}
         candidateAge={candidateAge}
         candidateDiplomaYear={candidateDiplomaYear}
@@ -269,7 +271,7 @@ function App() {
           setCurrentPage(1);
         }}
         onReset={resetFilters}
-      />
+      />*/}
 
       <section className="results" aria-live="polite">
         <div className="results-heading">

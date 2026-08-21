@@ -225,7 +225,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(screen.getByTestId("language-flag")).toHaveAttribute("src", "/flags/fr.svg");
   });
 
-  it("shows the candidate profile filter row", () => {
+/*  it("shows the candidate profile filter row", () => {
     render(<App />);
 
     expect(screen.getByLabelText("Candidate profile filters")).toBeInTheDocument();
@@ -233,9 +233,9 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(screen.getByLabelText("Year of diploma obtained")).toBeInTheDocument();
     expect(screen.getByLabelText("Nationality")).toBeInTheDocument();
     expect(screen.getByLabelText("Years of professional experience")).toBeInTheDocument();
-  });
+  });*/
 
-  it("resets candidate profile filters", async () => {
+/*  it("resets candidate profile filters", async () => {
     const user = userEvent.setup();
     render(<App />);
 
@@ -250,9 +250,9 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect((screen.getByTestId("candidate-diploma-year-filter") as HTMLInputElement).value).toBe("");
     expect(screen.getByTestId("candidate-nationality-filter")).toHaveValue("all");
     expect((screen.getByTestId("candidate-experience-years-filter") as HTMLInputElement).value).toBe("");
-  });
+  });*/
 
-  it("filters countries by the new candidate profile criteria", async () => {
+/*  it("filters countries by the new candidate profile criteria", async () => {
     const user = userEvent.setup();
     const currentYear = new Date().getFullYear();
     render(<App />);
@@ -283,7 +283,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     await user.clear(screen.getByTestId("candidate-age-filter"));
     await user.type(screen.getByTestId("candidate-age-filter"), "22");
     expect(getCountryNames().some((name) => name?.startsWith("Thailand"))).toBe(true);
-  });
+  });*/
 
   it("toggles the dark theme accessibly", async () => {
     const user = userEvent.setup();
