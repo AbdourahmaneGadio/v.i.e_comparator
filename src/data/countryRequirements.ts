@@ -99,8 +99,7 @@ const normalize = (value: string) => value
 const getCountryKey = (countryName: string) => normalize(countryName.split(" (")[0]);
 
 const countryKeyAliases: Record<string, string> = {
-  "ILE MAURICE": "MAURICE",
-  "HONG KONG": "CHINE",
+  "ILE MAURICE": "MAURICE"
 };
 
 const getRequirementKey = (countryName: string) => {

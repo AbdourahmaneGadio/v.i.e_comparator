@@ -139,7 +139,6 @@ describe("Integration tests: V.I.E Comparator", () => {
     await user.type(screen.getByTestId("name-filter"), "China");
     expect(getCountryNames()).toEqual(expect.arrayContaining([
       "China (Beijing)",
-      "China (Hong Kong)",
       "China (Shanghai)",
       "China (Wuhan, Guangzhou)",
     ]));
@@ -327,7 +326,7 @@ describe("Integration tests: V.I.E Comparator", () => {
 
     await selectLanguage(user, "fr");
     await user.type(screen.getByTestId("name-filter"), "CHINE");
-    await user.click(screen.getByRole("button", { name: "Chine (Hong-Kong)" }));
+    await user.click(screen.getByRole("button", { name: "Chine (Shanghai)" }));
 
     expect(screen.getByTestId("country-details")).toHaveTextContent("Conditions par pays");
     expect(screen.getByText("Critères imposés par le pays")).toBeInTheDocument();

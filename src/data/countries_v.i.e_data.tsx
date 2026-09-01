@@ -337,7 +337,7 @@ const countriesData = [
   },
   {
     countryId: 385,
-    name: "CHINE (Hong-Kong)",
+    name: "HONG-KONG",
     commonIndemnity: 772.87,
     geographicIndemnity: 2518.08,
     monthlyPay: 3290.95,

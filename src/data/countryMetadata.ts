@@ -82,6 +82,7 @@ const flagCodeByCountry = {
   GUYANA: "gy",
   HAITI: "ht",
   HONDURAS: "hn",
+  "HONG-KONG": "hk",
   HONGRIE: "hu",
   INDE: "in",
   INDONESIE: "id",
@@ -205,12 +206,14 @@ const frenchCountryOverrides: Record<string, string> = {
   CAIMANS: "Îles Caïmans",
   CONGO: "Congo",
   "CONGO RDC": "République démocratique du Congo",
+  "HONG-KONG": "Hong-Kong",
   JERUSALEM: "Jérusalem",
   SALOMON: "Îles Salomon",
   TAIPEI: "Taïwan",
 };
 const englishCountryOverrides: Record<string, string> = {
   CAIMANS: "Cayman Islands",
+  "HONG-KONG": "Hong Kong",
   JERUSALEM: "Jerusalem",
   MACAO: "Macao",
   SALOMON: "Solomon Islands",
@@ -301,7 +304,7 @@ const countriesByZone: Record<Zone, readonly string[]> = {
     "SALVADOR", "SURINAME", "TRINITE-ET-TOBAGO", "URUGUAY", "VENEZUELA",
   ],
   "ASIE ET PACIFIQUE": [
-    "AFGHANISTAN", "BANGLADESH", "BIRMANIE", "BRUNEI", "CAMBODGE", "CHINE", "INDE", "INDONESIE",
+    "AFGHANISTAN", "BANGLADESH", "BIRMANIE", "BRUNEI", "CAMBODGE", "CHINE", "HONG-KONG", "INDE", "INDONESIE",
     "JAPON", "LAOS", "MACAO", "MALAISIE", "MALDIVES", "MONGOLIE", "NEPAL", "PAKISTAN", "PHILIPPINES",
     "SINGAPOUR", "SRI LANKA", "TAIPEI", "THAILANDE", "TIMOR ORIENTAL", "VIETNAM", "COREE DU SUD",
   ],

@@ -23,9 +23,28 @@ describe("Unit tests: country requirements", () => {
   });
 
   it("resolves country variants to the same requirements", () => {
-    expect(getCountryRequirement("CHINE (Hong-Kong)")?.englishUrl).toBe(
-      "https://mon-vie-via.businessfrance.fr/en/destinations/china",
+    expect(getCountryRequirement("Hong-Kong")?.englishUrl).toBe(
+      "https://mon-vie-via.businessfrance.fr/en/destinations/hong-kong",
     );
     expect(getCountryRequirement("INDE (New Delhi)")?.frenchName).toBe("Inde");
+  });
+
+  it("resolves Hong Kong independently from China", () => {
+    const hongKongRequirement = getCountryRequirement("HONG-KONG");
+
+    expect(hongKongRequirement?.englishName).toBe("Hong Kong");
+    expect(hongKongRequirement?.englishUrl).toBe(
+        "https://mon-vie-via.businessfrance.fr/en/destinations/hong-kong",
+    );
+    expect(hongKongRequirement?.frenchUrl).toBe(
+        "https://mon-vie-via.businessfrance.fr/destinations/hong-kong",
+    );
+    expect(hongKongRequirement?.frenchImageUrl).toBe(
+        "https://images.prismic.io/civiwebprod/aEL-kLh8WN-LVwZE_HONGKONGFR.png?auto=format,compress",
+    );
+    expect(hongKongRequirement?.englishImageUrl).toBe(
+        "https://images.prismic.io/civiwebprod/aEL_Yrh8WN-LVwaL_HONGKONGEN.png?auto=format,compress",
+    );
+    expect(hasCountryRequirements("HONG-KONG")).toBe(false);
   });
 });
