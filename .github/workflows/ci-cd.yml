@@ -60,6 +60,9 @@ jobs:
       - name: Run unit and integration tests
         run: npm test -- --run
 
+      - name: Test the indemnity updater
+        run: python3 scripts/test_update_vie_indemnities.py
+
       - name: Build application
         if: steps.changes.outputs.application_or_tests == 'true'
         run: npm run build

@@ -1,5 +1,5 @@
 import { useMemo, useState, type ChangeEvent } from "react";
-import countriesData from "./data/countries_v.i.e_data";
+import countriesData, { indemnityDataMonth } from "./data/countries_v.i.e_data";
 import CountryTable from "./components/CountryTable";
 import Filters from "./components/Filters";
 import CountryDetails from "./components/CountryDetails";
@@ -326,7 +326,15 @@ function App() {
         >
           Business France
         </a>
-        <span>· {translation.dataYear}</span>
+        <span>
+          · {language === "fr" && "Données de "}<time dateTime={indemnityDataMonth}>
+            {new Intl.DateTimeFormat(language, {
+              month: "long",
+              year: "numeric",
+              timeZone: "UTC",
+            }).format(new Date(`${indemnityDataMonth}-01T00:00:00Z`))}
+          </time>{language === "en" && " data"}
+        </span>
         <span>· © Abdourahmane Gadio - {currentYear}</span>
       </footer>
     </main>

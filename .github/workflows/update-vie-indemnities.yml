@@ -1,0 +1,39 @@
+name: Update V.I.E. indemnities
+
+on:
+  schedule:
+    - cron: '23 8 15 1,4,7,10 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-vie-indemnities
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Check Business France rates
+        env:
+          BUSINESS_FRANCE_API_KEY: ${{ secrets.BUSINESS_FRANCE_API_KEY }}
+        run: python3 scripts/update-vie-indemnities.py
+
+      - name: Open or update the rates pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/vie-indemnities
+          delete-branch: true
+          add-paths: |
+            src/data/countries_v.i.e_data.tsx
+            data/indemnity-archive/*.tsx
+          commit-message: Update V.I.E. geographical indemnities
+          title: Update V.I.E. geographical indemnities
+          body: Refresh rates verified through the Business France Offers API this quarter and archive the previous dataset. Destinations without a matching offer retain their previous rates.

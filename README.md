@@ -118,9 +118,13 @@ npm run precommit # Run lint and unit/integration tests
 
 ## Data
 
+The [indemnity archive](data/indemnity-archive) contains the original [2025 dataset](data/indemnity-archive/2025.tsx). Each quarterly update that changes any rates saves the complete previous dataset in the same pull request. Automated snapshots use the SHA-256 hash of their contents as the filename, so identical snapshots share a file.
+
 Country indemnity data is stored in [`src/data/countries_v.i.e_data.tsx`](src/data/countries_v.i.e_data.tsx). The displayed total indemnity corresponds to the dataset’s `monthlyPay` value.
 
-The application uses the indemnity data for 2025. The source is the official [V.I.E./V.I.A. Business France website](https://mon-vie-via.businessfrance.fr).
+The application uses 2025 rates and November 2026 rates verified for 65 destinations against published offers from the Business France Offers API. Each offer supplies the monthly total, and the geographical allowance is the total minus the common allowance of €772.87. [Business France V.I.E. indemnities](https://mon-vie-via.businessfrance.fr/indemnite-vie)
+
+The **Update V.I.E. indemnities** workflow checks rates on January 15, April 15, July 15, and October 15. It can also be run manually from the Actions tab. Add the `BUSINESS_FRANCE_API_KEY` repository secret and enable **Allow GitHub Actions to create and approve pull requests** in the repository’s Actions settings. The workflow checks one offer per country and opens a pull request when a verified rate changes. Destinations without a current-quarter offer that maps to a table row keep their previous rates.
 
 Country-specific requirements and localized destination metadata are stored in [`src/data/countries_requirements.json`](src/data/countries_requirements.json) and exposed through [`src/data/countryRequirements.ts`](src/data/countryRequirements.ts). The country details panel uses the French or English destination image when available.
 

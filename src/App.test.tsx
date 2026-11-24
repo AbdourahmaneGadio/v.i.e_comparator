@@ -2,6 +2,7 @@ import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 import App from "./App";
+import { indemnityDataMonth } from "./data/countries_v.i.e_data";
 
 afterEach(cleanup);
 
@@ -204,6 +205,17 @@ describe("Integration tests: V.I.E Comparator", () => {
     const user = userEvent.setup();
     render(<App />);
 
+    const dataDate = new Date(`${indemnityDataMonth}-01T00:00:00Z`);
+    const formatDataMonth = (language: string) =>
+      dataDate.toLocaleDateString(language, {
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      });
+    const footerDate = screen.getByText(formatDataMonth("en"), { selector: "time" });
+    expect(footerDate).toHaveAttribute("datetime", indemnityDataMonth);
+    expect(footerDate.parentElement).toHaveTextContent(`${formatDataMonth("en")} data`);
+
     expect(screen.getByTestId("language-selector")).toHaveTextContent("English");
     expect(screen.getByTestId("language-flag")).toHaveAttribute("src", "/flags/gb.svg");
     await user.click(screen.getByTestId("language-selector"));
@@ -215,6 +227,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(screen.getByLabelText("Nom du pays")).toBeInTheDocument();
     expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 sur 24");
     expect(screen.getByText("Source des données:")).toBeInTheDocument();
+    expect(footerDate.parentElement).toHaveTextContent(`Données de ${formatDataMonth("fr")}`);
     expect(screen.getByRole("link", { name: "Business France" })).toHaveAttribute(
       "href",
       "https://mon-vie-via.businessfrance.fr",

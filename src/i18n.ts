@@ -45,7 +45,6 @@ export interface Translation {
   next: string;
   last: string;
   dataSource: string;
-  dataYear: string;
   countryDetails: string;
   closeDetails: string;
   eligibilityTitle: string;
@@ -150,7 +149,6 @@ export const translations: Record<Language, Translation> = {
     next: "Next",
     last: "Last",
     dataSource: "Data source",
-    dataYear: "2025 data",
     countryDetails: "Country requirements",
     closeDetails: "Close country requirements",
     eligibilityTitle: "V.I.E. eligibility",
@@ -233,7 +231,6 @@ export const translations: Record<Language, Translation> = {
     next: "Suivant",
     last: "Dernière",
     dataSource: "Source des données",
-    dataYear: "Données 2025",
     countryDetails: "Conditions par pays",
     closeDetails: "Fermer les conditions du pays",
     eligibilityTitle: "Éligibilité V.I.E.",
