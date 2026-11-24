@@ -1,12 +1,12 @@
 import json
-import os
 import runpy
 import unittest
 from datetime import date
+from io import BytesIO
 from decimal import Decimal
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 SCRIPTS = Path(__file__).resolve().parent
 # Each entry records the city, monthly total, publication date, and expected
@@ -26,10 +26,33 @@ class November2026(date):
 
 
 class UpdateVieIndemnitiesTest(unittest.TestCase):
+    def test_fetches_current_public_key_for_each_offer(self):
+        responses = [
+            BytesIO(br'{GMAPS_API_KEY:"unrelated",API_KEY:"first\u002Fkey"}'),
+            BytesIO(b'{"result":[]}'),
+            BytesIO(b'{API_KEY:"second-key"}'),
+            BytesIO(b'{"result":[]}'),
+        ]
+        namespace = UPDATE.__globals__
+        open_url = Mock(side_effect=responses)
+        with patch.dict(namespace, urlopen=open_url):
+            self.assertIsNone(namespace["fetch_offer"]("DE"))
+            self.assertIsNone(namespace["fetch_offer"]("SG"))
+
+        requests = [call.args[0] for call in open_url.call_args_list]
+        self.assertEqual([req.full_url for req in requests[::2]], [
+            namespace["SITE"] + "/pays",
+            namespace["SITE"] + "/pays",
+        ])
+        self.assertEqual(
+            [req.get_header("X-api-key") for req in requests[1::2]],
+            ["first/key", "second-key"],
+        )
+
     def test_all_countries_in_november_snapshot(self):
         requested = set()
 
-        def fetch_offer(code, _key):
+        def fetch_offer(code):
             requested.add(code)
             entry = FIXTURE[code]
             if entry is None:
@@ -52,7 +75,7 @@ class UpdateVieIndemnitiesTest(unittest.TestCase):
                 ARCHIVE=root / "archive",
                 date=November2026,
                 fetch_offer=fetch_offer,
-            ), patch.dict(os.environ, BUSINESS_FRANCE_API_KEY="test"):
+            ):
                 UPDATE()
             updated = data.read_text(encoding="utf-8")
             actual = {int(row["id"]): row[0] for row in ROW.finditer(updated)}

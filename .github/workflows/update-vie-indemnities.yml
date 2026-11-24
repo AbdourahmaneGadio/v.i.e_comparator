@@ -22,8 +22,6 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Check Business France rates
-        env:
-          BUSINESS_FRANCE_API_KEY: ${{ secrets.BUSINESS_FRANCE_API_KEY }}
         run: python3 scripts/update-vie-indemnities.py
 
       - name: Open or update the rates pull request

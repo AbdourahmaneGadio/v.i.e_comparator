@@ -1,7 +1,6 @@
 """Refresh the local V.I.E. rates using the latest Business France offer per country."""
 
 import json
-import os
 import re
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
@@ -16,6 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "src/data/countries_v.i.e_data.tsx"
 ARCHIVE = ROOT / "data/indemnity-archive"
 METADATA = ROOT / "src/data/countryMetadata.ts"
+SITE = "https://mon-vie-via.businessfrance.fr"
+PUBLIC_API_KEY = re.compile(r'(?:[,{])\s*API_KEY\s*:\s*("(?:[^"\\]|\\.)*")')
 ROW = re.compile(
     r'(?P<prefix>    countryId: (?P<id>\d+),\n    name: "(?P<name>[^"]+)",\n'
     r'    commonIndemnity: (?P<common>[\d.]+),\n)'
@@ -65,15 +66,32 @@ def choose_row(code, rows, offer):
     return matches[0] if len(matches) == 1 else None
 
 
-def fetch_offer(code, key):
-    site = "https://mon-vie-via.businessfrance.fr"
+def fetch_public_api_key():
+    request = Request(f"{SITE}/pays", headers={"Cache-Control": "no-cache"})
+    with urlopen(request, timeout=20) as response:
+        page = response.read().decode("utf-8")
+    match = PUBLIC_API_KEY.search(page)
+    if not match:
+        raise ValueError("Public Business France API key not found")
+    key = json.loads(match[1])
+    if not key:
+        raise ValueError("Public Business France API key is empty")
+    return key
+
+
+def fetch_offer(code):
+    try:
+        key = fetch_public_api_key()
+    except (OSError, ValueError) as error:
+        raise RuntimeError(f"Could not load the public API key for {code}") from error
+
     request = Request(
         f"https://api-mon-vie-via.businessfrance.fr/api/Offers/country/{code}",
         data=b'{"skip":0,"limit":1}',
         headers={
             "X-API-KEY": key,
-            "Origin": site,
-            "Referer": site + "/",
+            "Origin": SITE,
+            "Referer": SITE + "/",
             "Accept": "application/json",
             "Content-Type": "application/json",
         },
@@ -89,10 +107,6 @@ def fetch_offer(code, key):
 
 
 def main():
-    key = os.environ.get("BUSINESS_FRANCE_API_KEY")
-    if not key:
-        raise SystemExit("Set BUSINESS_FRANCE_API_KEY to run this update.")
-
     metadata = METADATA.read_text().split("const flagCodeByCountry = {", 1)[1].split("}", 1)[0]
     codes = {
         quoted or bare: code.upper()
@@ -118,7 +132,7 @@ def main():
     updates = {}
     verified = 0
     with ThreadPoolExecutor(max_workers=6) as pool:
-        offers = pool.map(lambda code: fetch_offer(code, key), country_rows)
+        offers = pool.map(fetch_offer, country_rows)
         for code, offer in zip(country_rows, offers, strict=True):
             if not offer or offer.get("countryId") != code:
                 continue
