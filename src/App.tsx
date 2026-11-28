@@ -5,7 +5,7 @@ import Filters from "./components/Filters";
 import CountryDetails from "./components/CountryDetails";
 import {
   hasCountryRequirements,
-  getCountryRequirement,
+  hasDestinationImage,
 } from "./data/countryRequirements";
 import { getCountryDisplayName, getFlagCode, getZone } from "./data/countryMetadata";
 import { translations, type Language } from "./i18n";
@@ -51,8 +51,7 @@ function App() {
     const profileExperienceYears = candidateExperienceYears === "" ? null : Number(candidateExperienceYears);
 
     const filteredCountries = countriesData.filter((country) => {
-      const requirement = getCountryRequirement(country.name);
-      if (!showHiddenCountries && !requirement?.frenchImageUrl && !requirement?.englishImageUrl) {
+      if (!showHiddenCountries && !hasDestinationImage(country.name)) {
         return false;
       }
 
@@ -314,6 +313,7 @@ function App() {
             getFlagCode={getFlagCode}
             getCountryDisplayName={(countryName) => getCountryDisplayName(countryName, language)}
             hasCountryRequirements={hasCountryRequirements}
+            hasDestinationImage={hasDestinationImage}
             getZone={getZone}
             onSort={handleSort}
             onFirstPage={() => setCurrentPage(1)}

@@ -16,6 +16,7 @@ interface CountryTableProps {
   getFlagCode: (countryName: string) => string;
   getCountryDisplayName: (countryName: string) => string;
   hasCountryRequirements: (countryName: string) => boolean;
+  hasDestinationImage: (countryName: string) => boolean;
   getZone: (countryName: string) => Zone;
   onSort: (column: SortColumn) => void;
   onFirstPage: () => void;
@@ -61,6 +62,7 @@ function CountryTable({
   getFlagCode,
   getCountryDisplayName,
   hasCountryRequirements,
+  hasDestinationImage,
   getZone,
   onSort,
   onFirstPage,
@@ -86,7 +88,11 @@ function CountryTable({
         </thead>
         <tbody>
           {countries.map((country) => (
-            <tr data-testid="country-row" key={country.countryId}>
+            <tr
+              data-testid="country-row"
+              key={country.countryId}
+              className={hasDestinationImage(country.name) ? undefined : "hidden-country-row"}
+            >
               <td>
                 <img
                   className="country-flag"
