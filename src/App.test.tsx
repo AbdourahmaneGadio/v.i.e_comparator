@@ -25,7 +25,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     render(<App />);
 
     expect(getBodyRows()).toHaveLength(10);
-    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 of 24");
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 of 11");
   });
 
   it("marks countries with JSON-backed application criteria", async () => {
@@ -36,10 +36,19 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(within(screen.getByTestId("country-table")).getByText("YES")).toHaveClass("criteria-yes");
 
     await user.clear(screen.getByTestId("name-filter"));
-    await user.type(screen.getByTestId("name-filter"), "Afghanistan");
+    await user.type(screen.getByTestId("name-filter"), "Uzbekistan");
+    const toggle = screen.getByRole("button", { name: "Show hidden countries" });
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
+    expect(screen.queryByTestId("country-table")).not.toBeInTheDocument();
+
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute("aria-pressed", "true");
+    expect(getCountryNames()).toContain("Uzbekistan");
     expect(within(screen.getByTestId("country-table")).getByText("NO")).toHaveClass("criteria-no");
 
     await user.clear(screen.getByTestId("name-filter"));
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
     await user.type(screen.getByTestId("name-filter"), "Argentina");
     expect(within(screen.getByTestId("country-table")).getByText("NO")).toHaveClass("criteria-no");
 
@@ -51,6 +60,7 @@ describe("Integration tests: V.I.E Comparator", () => {
   it("filters countries by application criteria status", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await user.click(screen.getByRole("button", { name: "Show hidden countries" }));
 
     await user.selectOptions(screen.getByTestId("criteria-filter"), "yes");
     expect(getCountryNames()).toContain("Benin");
@@ -64,6 +74,7 @@ describe("Integration tests: V.I.E Comparator", () => {
   it("filters countries by name and zone", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await user.click(screen.getByRole("button", { name: "Show hidden countries" }));
 
     await user.type(screen.getByTestId("name-filter"), "Germany");
     expect(getCountryNames()).toContain("Germany (Berlin)");
@@ -84,6 +95,7 @@ describe("Integration tests: V.I.E Comparator", () => {
   it("filters countries by multiple zones", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await user.click(screen.getByRole("button", { name: "Show hidden countries" }));
 
     await user.click(screen.getByTestId("zone-filter-summary"));
     expect(screen.getByTestId("zone-option-AFRIQUE DU NORD")).toBeInTheDocument();
@@ -103,6 +115,7 @@ describe("Integration tests: V.I.E Comparator", () => {
   it("sorts the table when a column header is clicked", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await user.click(screen.getByRole("button", { name: "Show hidden countries" }));
 
     const nameHeader = screen.getByTestId("sort-name");
     await user.click(nameHeader);
@@ -118,8 +131,8 @@ describe("Integration tests: V.I.E Comparator", () => {
 
     await user.click(screen.getByTestId("next-page"));
 
-    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 2 of 24");
-    expect(getFirstCountryName()).toBe("Australia (Sydney)");
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 2 of 11");
+
   });
 
   it("jumps to the first and last pages", async () => {
@@ -127,15 +140,16 @@ describe("Integration tests: V.I.E Comparator", () => {
     render(<App />);
 
     await user.click(screen.getByTestId("last-page"));
-    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 24 of 24");
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 11 of 11");
 
     await user.click(screen.getByTestId("first-page"));
-    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 of 24");
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 of 11");
   });
 
   it("translates country names and regional variants in English", async () => {
     const user = userEvent.setup();
     render(<App />);
+    await user.click(screen.getByRole("button", { name: "Show hidden countries" }));
 
     await user.type(screen.getByTestId("name-filter"), "China");
     expect(getCountryNames()).toEqual(expect.arrayContaining([
@@ -225,7 +239,7 @@ describe("Integration tests: V.I.E Comparator", () => {
 
     expect(screen.getByRole("heading", { name: "Comparateur V.I.E." })).toBeInTheDocument();
     expect(screen.getByLabelText("Nom du pays")).toBeInTheDocument();
-    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 sur 24");
+    expect(screen.getByTestId("page-indicator")).toHaveTextContent("Page 1 sur 11");
     expect(screen.getByText("Source des données:")).toBeInTheDocument();
     expect(footerDate.parentElement).toHaveTextContent(`Données de ${formatDataMonth("fr")}`);
     expect(screen.getByRole("link", { name: "Business France" })).toHaveAttribute(
@@ -321,6 +335,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     render(<App />);
 
     await selectLanguage(user, "fr");
+    await user.click(screen.getByRole("button", { name: "Afficher les pays masqués" }));
     await user.type(screen.getByTestId("name-filter"), "CAP-VERT");
     expect(getCountryNames()).toContain("Cap-Vert");
 

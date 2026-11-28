@@ -24,6 +24,7 @@ export interface Translation {
   noMaximum: string;
   reset: string;
   countries: string;
+  showHiddenCountries: string;
   resultCount: (count: number) => string;
   minimumError: string;
   noMatches: string;
@@ -128,6 +129,7 @@ export const translations: Record<Language, Translation> = {
     noMaximum: "No maximum",
     reset: "Reset",
     countries: "Countries",
+    showHiddenCountries: "Show hidden countries",
     resultCount: (count) => `${count} result(s)`,
     minimumError: "The minimum cannot be greater than the maximum.",
     noMatches: "No countries match these filters.",
@@ -210,6 +212,7 @@ export const translations: Record<Language, Translation> = {
     noMaximum: "Aucun maximum",
     reset: "Réinitialiser",
     countries: "Pays",
+    showHiddenCountries: "Afficher les pays masqués",
     resultCount: (count) => `${count} résultat${count === 1 ? "" : "s"}`,
     minimumError: "Le minimum ne peut pas être supérieur au maximum.",
     noMatches: "Aucun pays ne correspond à ces filtres.",

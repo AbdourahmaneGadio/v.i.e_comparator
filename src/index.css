@@ -61,6 +61,8 @@ input:focus { border-color: #0b7285; box-shadow: 0 0 0 3px rgb(11 114 133 / 14%)
 
 .results { margin-top: 36px; }
 .results-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.hidden-countries-toggle { display: block; margin-bottom: 14px; padding: 8px 12px; color: inherit; font: inherit; background: transparent; border: 1px solid currentColor; border-radius: 8px; cursor: pointer; }
+.hidden-countries-toggle[aria-pressed="true"] { color: #fff; background: #0b7285; border-color: #0b7285; }
 .results-heading h2 { font-size: 1.35rem; }
 .results-heading span { color: #72808b; font-size: 0.9rem; }
 .table-wrapper { overflow-x: auto; background: #fff; border: 1px solid #e2e8ec; border-radius: 12px; }
