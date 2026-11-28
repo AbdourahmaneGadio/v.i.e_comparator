@@ -7,7 +7,7 @@ test.describe("End-to-end smoke tests", () => {
     await expect(page.getByRole("heading", { name: "V.I.E Comparator" })).toBeVisible();
     await expect(page.getByRole("searchbox", { name: "Country name" })).toBeVisible();
     await expect(page.locator("tbody tr")).toHaveCount(10);
-    await expect(page.getByText("Page 1 of 24")).toBeVisible();
+    await expect(page.getByText("Page 1 of 11")).toBeVisible();
   });
 });
 
@@ -16,7 +16,7 @@ test.describe("End-to-end filtering", () => {
     await page.goto("/");
 
     await expect(page.locator("tbody tr")).toHaveCount(10);
-    await expect(page.getByText("Page 1 of 24")).toBeVisible();
+    await expect(page.getByText("Page 1 of 11")).toBeVisible();
     await expect(page.getByRole("button", { name: "Next" })).toBeEnabled();
   });
 
@@ -31,6 +31,8 @@ test.describe("End-to-end filtering", () => {
     await page.getByTestId("zone-filter-summary").click();
     await expect(page.getByTestId("zone-option-AFRIQUE DU NORD")).toBeVisible();
     await page.getByTestId("zone-option-AFRIQUE DU NORD").check();
+    await expect(page.getByText("Algeria (other cities)")).not.toBeVisible();
+    await page.getByRole("button", { name: "Show hidden countries" }).click();
     await expect(page.getByText("Algeria (other cities)")).toBeVisible();
     await expect(page.getByText("Egypt")).toBeVisible();
     await expect(page.getByText("Germany (Berlin)")).not.toBeVisible();
@@ -41,6 +43,7 @@ test.describe("End-to-end sorting and pagination", () => {
   test("sorts countries and moves to the next page", async ({ page }) => {
     await page.goto("/");
 
+    await page.getByRole("button", { name: "Show hidden countries" }).click();
     const firstCountry = page.locator("tbody tr").first().locator("td").nth(1);
     await expect(firstCountry).toHaveText("Afghanistan");
 

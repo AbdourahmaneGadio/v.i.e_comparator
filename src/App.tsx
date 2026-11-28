@@ -5,6 +5,7 @@ import Filters from "./components/Filters";
 import CountryDetails from "./components/CountryDetails";
 import {
   hasCountryRequirements,
+  getCountryRequirement,
 } from "./data/countryRequirements";
 import { getCountryDisplayName, getFlagCode, getZone } from "./data/countryMetadata";
 import { translations, type Language } from "./i18n";
@@ -34,6 +35,7 @@ function App() {
   const [candidateDiplomaYear, setCandidateDiplomaYear] = useState("");
   const [candidateNationality, setCandidateNationality] = useState<CandidateNationality>("all");
   const [candidateExperienceYears, setCandidateExperienceYears] = useState("");
+  const [showHiddenCountries, setShowHiddenCountries] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<SortColumn>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("ascending");
@@ -49,6 +51,11 @@ function App() {
     const profileExperienceYears = candidateExperienceYears === "" ? null : Number(candidateExperienceYears);
 
     const filteredCountries = countriesData.filter((country) => {
+      const requirement = getCountryRequirement(country.name);
+      if (!showHiddenCountries && !requirement?.frenchImageUrl && !requirement?.englishImageUrl) {
+        return false;
+      }
+
       const displayName = getCountryDisplayName(country.name, language);
       const matchesName = country.name.toLocaleLowerCase().includes(normalizedName)
         || displayName.toLocaleLowerCase().includes(normalizedName);
@@ -100,6 +107,7 @@ function App() {
     minimumIndemnity,
     nameSearch,
     selectedZones,
+    showHiddenCountries,
     sortColumn,
     sortDirection,
     currentYear,
@@ -278,6 +286,18 @@ function App() {
           <h2>{translation.countries}</h2>
           <span>{translation.resultCount(sortedCountries.length)}</span>
         </div>
+
+        <button
+          type="button"
+          className="hidden-countries-toggle"
+          aria-pressed={showHiddenCountries}
+          onClick={() => {
+            setShowHiddenCountries((show) => !show);
+            setCurrentPage(1);
+          }}
+        >
+          {translation.showHiddenCountries}
+        </button>
 
         {minimumIndemnity !== "" && maximumIndemnity !== "" &&
         Number(minimumIndemnity) > Number(maximumIndemnity) ? (
