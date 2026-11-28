@@ -24,14 +24,18 @@ jobs:
       - name: Check Business France rates
         run: python3 scripts/update-vie-indemnities.py
 
-      - name: Open or update the rates pull request
+      - name: Refresh illustrated destinations
+        run: python3 scripts/update-vie-indemnities.py --illustrated-destinations
+
+      - name: Open or update the data pull request
         uses: peter-evans/create-pull-request@v8
         with:
           branch: automation/vie-indemnities
           delete-branch: true
           add-paths: |
             src/data/countries_v.i.e_data.tsx
+            src/data/illustratedDestinations.json
             data/indemnity-archive/*.tsx
           commit-message: Update V.I.E. geographical indemnities
           title: Update V.I.E. geographical indemnities
-          body: Refresh rates verified through the Business France Offers API this quarter and archive the previous dataset. Destinations without a matching offer retain their previous rates.
+          body: Refresh rates verified through the Business France Offers API this quarter and archive the previous dataset. Destinations without a matching offer retain their previous rates. Refresh illustrated destinations from the Business France country directory.

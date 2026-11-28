@@ -36,6 +36,10 @@ describe("Integration tests: V.I.E Comparator", () => {
     expect(within(screen.getByTestId("country-table")).getByText("YES")).toHaveClass("criteria-yes");
 
     await user.clear(screen.getByTestId("name-filter"));
+    await user.type(screen.getByTestId("name-filter"), "South Africa");
+    expect(getCountryNames()).toContain("South Africa (Johannesburg, Pretoria)");
+    await user.clear(screen.getByTestId("name-filter"));
+
     await user.type(screen.getByTestId("name-filter"), "Uzbekistan");
     const toggle = screen.getByRole("button", { name: "Show hidden countries" });
     expect(toggle).toHaveAttribute("aria-pressed", "false");
@@ -44,6 +48,7 @@ describe("Integration tests: V.I.E Comparator", () => {
     await user.click(toggle);
     expect(toggle).toHaveAttribute("aria-pressed", "true");
     expect(getCountryNames()).toContain("Uzbekistan");
+    expect(getBodyRows()[0]).toHaveClass("hidden-country-row");
     expect(within(screen.getByTestId("country-table")).getByText("NO")).toHaveClass("criteria-no");
 
     await user.clear(screen.getByTestId("name-filter"));

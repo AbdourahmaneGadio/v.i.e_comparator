@@ -2,6 +2,7 @@
 
 import json
 import re
+import sys
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date
@@ -9,6 +10,7 @@ from decimal import Decimal
 from hashlib import sha256
 from pathlib import Path
 from unicodedata import normalize
+from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -106,6 +108,37 @@ def fetch_offer(code):
         raise RuntimeError(f"Business France offer request failed for {code}") from error
 
 
+def update_illustrated_destinations():
+    query = urlencode({
+        "predicate": '[at(document.type, "country")]',
+        "options": json.dumps({
+            "pageSize": 100,
+            "fetch": ["my.country.name", "my.country.image"],
+            "lang": "fr-fr",
+        }),
+    })
+    request = Request(
+        f"https://api-mon-vie-via.businessfrance.fr/api/Prismic/Query?{query}",
+        headers={"X-API-KEY": fetch_public_api_key(), "Origin": SITE, "Referer": SITE + "/"},
+    )
+    with urlopen(request, timeout=20) as response:
+        document = json.load(response)
+    results = document["results"]
+    if not results or len(results) != document["total_results_size"]:
+        raise ValueError("Business France returned an empty or incomplete destination list")
+    names = sorted({
+        entry["data"]["name"]
+        for entry in results
+        if (entry["data"].get("image") or {}).get("url")
+    })
+    if not names or not all(isinstance(name, str) and name.strip() for name in names):
+        raise ValueError("Business France returned invalid illustrated destinations")
+    (ROOT / "src/data/illustratedDestinations.json").write_text(
+        json.dumps(names, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(f"Refreshed {len(names)} illustrated destinations.")
+
+
 def main():
     metadata = METADATA.read_text().split("const flagCodeByCountry = {", 1)[1].split("}", 1)[0]
     codes = {
@@ -174,4 +207,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:] == ["--illustrated-destinations"]:
+        update_illustrated_destinations()
+    else:
+        main()

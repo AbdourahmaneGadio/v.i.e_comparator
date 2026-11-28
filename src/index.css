@@ -80,6 +80,8 @@ td { font-size: 0.95rem; }
 .country-flag { display: block; width: 42px; height: 28px; object-fit: cover; border: 1px solid #dce3e7; border-radius: 4px; }
 tbody tr:last-child td { border-bottom: 0; }
 tbody tr:hover { background: #f8fbfc; }
+tr.hidden-country-row { background: #f0f1f2; }
+tr.hidden-country-row:hover { background: #e6e8ea; }
 tbody tr { animation: row-appear 350ms ease-out both; }
 tbody tr:nth-child(2) { animation-delay: 25ms; }
 tbody tr:nth-child(3) { animation-delay: 50ms; }
@@ -141,6 +143,8 @@ tbody tr:nth-child(10) { animation-delay: 225ms; }
 :is(.dark-theme, .oled-theme) th { color: #b9c8cf; background: #202d35; border-color: #35464f; }
 :is(.dark-theme, .oled-theme) td { border-color: #35464f; }
 :is(.dark-theme, .oled-theme) tbody tr:hover { background: #24343d; }
+:is(.dark-theme, .oled-theme) tr.hidden-country-row { background: #33383d; }
+:is(.dark-theme, .oled-theme) tr.hidden-country-row:hover { background: #3e444a; }
 :is(.dark-theme, .oled-theme) .empty-state { color: #aebdc5; background: #1c262d; border-color: #40515b; }
 :is(.dark-theme, .oled-theme) .country-details-image { box-shadow: 0 8px 24px rgb(0 0 0 / 30%); }
 :is(.dark-theme, .oled-theme) .criteria-group, :is(.dark-theme, .oled-theme) .criteria-option { background: #202d35; border-color: #40515b; }

@@ -1,3 +1,4 @@
+import illustratedDestinations from "./illustratedDestinations.json";
 import requirementsDocument from "./countries_requirements.json";
 
 interface RequirementResult {
@@ -106,6 +107,11 @@ const getRequirementKey = (countryName: string) => {
   const key = getCountryKey(countryName);
   return countryKeyAliases[key] ?? key;
 };
+
+const illustratedCountryKeys = new Set(illustratedDestinations.map(getRequirementKey));
+
+export const hasDestinationImage = (countryName: string) =>
+  illustratedCountryKeys.has(getRequirementKey(countryName));
 
 export const countryRequirements = new Map<string, CountryRequirement>();
 const countriesWithCriteria = new Set([
